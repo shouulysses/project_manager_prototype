@@ -1,0 +1,29 @@
+.login-container{
+  background-color: $dark-grey;
+  display: flex;
+  min-height: 960px;
+  @include breakpoint(0, 768){
+    min-height: 0;
+  }
+  .login-box{
+    margin: auto;
+    display: flex;
+    height: 600px;
+    width: 1200px;
+    @include breakpoint(0, 768){
+      max-width: 600px;    
+    }
+    background-color: white;
+    .left{
+      padding: 10rem 5rem;
+      
+    }
+    .right{
+      display:flex;
+      justify-content: center;
+      img{
+        align-self: center;
+      }
+    }
+  }
+}

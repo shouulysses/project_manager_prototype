@@ -1,0 +1,55 @@
+// From bootstrap
+
+@import "./bootstrap/bootstrap-grid";
+
+// Utilities
+
+@import "./utilities/colors";
+@import "./utilities/spacing";
+@import "./utilities/mixins";
+@import "./utilities/symbol";
+@import "./utilities/typography";
+
+$sidebar-width: 250px;
+$sidebar-tablet-height: 160px;
+$topbar-height: 60px;
+
+// Import from components
+
+@import './components/App/Header';
+@import './components/App/Footer';
+@import './components/Auth/LoginForm';
+@import './components/Project/AddProjectComponent';
+@import './components/Project/ProjectTable';
+@import './components/Sidebar';
+@import './components/Topbar';
+
+// Import datepicker
+
+@import './datepicker';
+
+/*
+  Global CSS file
+*/
+
+body {
+	background: #FFF;
+	font-family: 'Lato', sans-serif;
+	font-size: 16px;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0;
+}
+
+.container-auth{
+	padding-left: $sidebar-width;
+	@include breakpoint(0, 992){
+		padding-left: 0;
+		padding-top: $sidebar-tablet-height + $topbar-height;
+	}
+	padding-top: $topbar-height;
+}

@@ -1,0 +1,36 @@
+$dark-grey: #2A3A4A;
+$sea-blue: #397283;
+$dark-blue: #1F2E41;
+$light-grey: #C2CBDC;
+
+.dark-grey{
+  color: $dark-grey;
+}
+
+.sea-blue{
+  color: $sea-blue;
+}
+
+.dark-blue{
+  color: $dark-blue;
+}
+
+.light-grey{
+  color: $light-grey;
+}
+
+.bg-dark-grey{
+  background-color: $dark-grey;
+}
+
+.bg-sea-blue{
+  background-color: $sea-blue;
+}
+
+.bg-dark-blue{
+  background-color: $dark-blue;
+}
+
+.bg-light-grey{
+  background-color: $light-grey;
+}

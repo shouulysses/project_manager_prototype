@@ -1,0 +1,42 @@
+$steps: 1 2 3 4 5;
+
+$margin: 1rem;
+$padding: 1rem;
+
+@each $step in $steps {
+  .mt#{$step}{
+    margin-top: $margin * $step;
+  }
+  
+  .mr#{$step}{
+    margin-right: $margin * $step;
+  }
+  
+  .mb#{$step}{
+    margin-bottom: $margin * $step;
+  }
+  
+  .ml#{$step}{
+    margin-left: $margin * $step;
+  }
+  
+  .pt#{$step}{
+    padding-top: $padding * $step;
+  }
+  
+  .pr#{$step}{
+    padding-right: $padding * $step;
+  }
+  
+  .pb#{$step}{
+    padding-bottom: $padding * $step;
+  }
+  
+  .pl#{$step}{
+    padding-left: $padding * $step;
+  }
+}
+
+.center{
+  margin: 0 auto;
+}
