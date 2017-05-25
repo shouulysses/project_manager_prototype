@@ -13,7 +13,7 @@ import { addProjectRequest, fetchProjects, deleteProjectRequest } from '../../ac
 // Import Selectors
 import { getProjects } from '../../reducers/ProjectReducer';
 
-class ProjectListPage extends Component {
+class ProjectListContainer extends Component {
   constructor(props){
     super(props);
   }
@@ -26,24 +26,25 @@ class ProjectListPage extends Component {
     // if(!this.props.isAuthenticated)
     //   this.context.router.push('/');
   }
+
+  // Add new project  
+  handleAddProject = (title, startDate) => {
+    this.props.dispatch(addProjectRequest({ title, startDate }));
+  };
   
+  // Delete exisitng project
   handleDeleteProject = id => {
-    console.log(id)
     if (confirm('Do you want to delete this project')) { // eslint-disable-line
       this.props.dispatch(deleteProjectRequest(id));
     }
   };
 
-  handleAddProject = (title, startDate) => {
-    this.props.dispatch(addProjectRequest({ title, startDate }));
-  };
+
 
   render() {
     const {
       projects
     } = this.props;
-    
-    console.log('projects', projects);
     
     return (
       <div className="col-12 col-lg-10 center">
@@ -62,7 +63,7 @@ class ProjectListPage extends Component {
 }
 
 // Actions required to provide data for this component to render in server side.
-ProjectListPage.need = [() => { return fetchProjects(); }];
+ProjectListContainer.need = [() => { return fetchProjects(); }];
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
@@ -72,7 +73,7 @@ function mapStateToProps(store) {
   };
 }
 
-ProjectListPage.propTypes = {
+ProjectListContainer.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     startDate: PropTypes.string.isRequired,
@@ -83,8 +84,8 @@ ProjectListPage.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired
 };
 
-ProjectListPage.contextTypes = {
+ProjectListContainer.contextTypes = {
   router: React.PropTypes.object,
 };
 
-export default connect(mapStateToProps)(ProjectListPage);
+export default connect(mapStateToProps)(ProjectListContainer);

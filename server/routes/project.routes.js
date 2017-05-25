@@ -7,7 +7,7 @@ const router = new Router();
 router.route('/projects').get(ProjectController.getProjects);
 
 // Get one project by cuid
-router.route('/projects/:id').get(ProjectController.getProject);
+router.route('/project/:id').get(ProjectController.getProject);
 
 // Add a new Project
 router.route('/addProject').post(ProjectController.addProject);

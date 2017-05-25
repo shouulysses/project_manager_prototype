@@ -16,34 +16,26 @@ export function getProjects(req, res) {
   });
 }
 
-/*
-export function getNewProjects(req, res) {
-  Project.find({status: 'new'}).sort('-startDate').exec((err, projects) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ projects });
-  });
+/**
+ * Get a single project
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function getProject(req, res) {
+  if(req.params && req.params.id){
+    Project.findOne({ _id: req.params.id }).exec((err, project) => {
+      if (err) {
+        res.status(500).send(err);
+      }else{
+        res.json({ project });
+      }
+    });
+  }else{
+    res.json({ });
+  }
 }
 
-export function getPendingProjects(req, res){
-  Project.find({startDate: {$lte: Date.now()}}).sort('-startDate').exec((err, projects) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ projects });
-  });
-}
-
-export function getExpiredProjects(req, res){
-  Project.find({startDate: {$gte: Date.now()}}).sort('-startDate').exec((err, projects) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ projects });
-  });
-}
-*/
 
 /**
  * Save a project
@@ -72,28 +64,13 @@ export function addProject(req, res) {
 }
 
 /**
- * Get a single project
- * @param req
- * @param res
- * @returns void
- */
-export function getProject(req, res) {
-  Project.findOne({ _id: req.params.id }).exec((err, project) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ project });
-  });
-}
-
-/**
  * Delete a project
  * @param req
  * @param res
  * @returns void
  */
+ 
 export function deleteProject(req, res) {
-  console.log(req.params.id)
   Project.findOne({ _id: req.params.id }).exec((err, project) => {
     if (err) {
       res.status(500).send(err);

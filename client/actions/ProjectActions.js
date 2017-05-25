@@ -33,7 +33,7 @@ export function addProjects(projects) {
 
 export function fetchProjects() {
   return (dispatch) => {
-    return callApi('projects').then((res) => {
+    return callApi('projects').then(res => {
       dispatch(addProjects(res.projects));
     });
   };
@@ -41,7 +41,9 @@ export function fetchProjects() {
 
 export function fetchProject(id) {
   return (dispatch) => {
-    return callApi(`projects/${id}`).then(res => dispatch(addProject(res.project)));
+    return callApi(`project/${id}`).then(res => {
+      dispatch(addProject(res.project));
+    });
   };
 }
 

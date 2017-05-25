@@ -18,30 +18,13 @@ if (process.env.NODE_ENV !== 'production') {
   require('./containers/Project/ProjectListContainer');
   require('./containers/Auth/LoginContainer');
   require('./containers/Auth/SignupContainer');
+  require('./pages/Project/ProjectDetailPage');
 }
 
 // react-router setup with code-splitting
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
 export default (
   <Route path="/" component={App}>
-    <Route
-      path="/projects"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./containers/Project/ProjectListContainer').default);
-        });
-      }}
-    />
-    {/*
-    <Route
-      path="/projects/:slug-:cuid"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('').default);
-        });
-      }}
-    />
-    */}
     <IndexRoute 
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
@@ -57,5 +40,22 @@ export default (
         });
       }}
     />
+    <Route
+      path="/projects"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./containers/Project/ProjectListContainer').default);
+        });
+      }}
+    />
+    <Route
+      path="/project/:id"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./pages/Project/ProjectDetailPage').default);
+        });
+      }}
+    />
+    
   </Route>
 );

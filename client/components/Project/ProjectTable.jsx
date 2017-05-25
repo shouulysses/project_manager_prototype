@@ -36,8 +36,6 @@ class ProjectTable extends Component {
   }
   
   render() {
-    console.log(this.state.projects)
-    
     return (
       <Table className="project-table ui sortable celled table">
         <thead>
@@ -52,10 +50,10 @@ class ProjectTable extends Component {
         <tbody>
         {_.map(this.state.projects, (project) => 
           <tr>
-            <td>{_.get(project, 'title', 'N/A')}</td>
-            <td width='160px'>{moment(_.get(project, 'startDate')).format("MMM Do YYYY") || 'N/A'}</td>
-            <td width='160px'>{_.get(project, 'status', 'N/A')}</td>
-            <td width='160px'>{moment(_.get(project, 'dateAdded')).format("MMM Do YYYY") || 'N/A'}</td>
+            <td><Link to={ `/project/${ _.get(project, '_id') }` }>{ _.get(project, 'title', 'N/A') }</Link></td>
+            <td width='160px'>{ moment(_.get(project, 'startDate')).format("MMM Do YYYY") || 'N/A' }</td>
+            <td width='160px'>{ _.get(project, 'status', 'N/A') }</td>
+            <td width='160px'>{ moment(_.get(project, 'dateAdded')).format("MMM Do YYYY") || 'N/A' }</td>
             <td width='160px'><Button onClick={ ()=>{ this.props.handleDeleteProject(_.get(project, '_id')) } }>Delete</Button></td>
           </tr>
         )}
