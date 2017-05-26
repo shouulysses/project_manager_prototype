@@ -7,8 +7,8 @@ const Sidebar = ({ route }) => (
   <div className="sidebar-container">
     <div className="sidebar-menu">
       <ul>
-        <li className={classNames({ active: route.includes('dashboard') })}>
-          <Link to="/dashboard">
+        <li className={classNames({ active: route.includes('projects') })}>
+          <Link to="/projects">
             <div>Dashboard</div>
             <div className="icon-area"><Icon name="home" /></div>
           </Link>
