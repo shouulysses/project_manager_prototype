@@ -49,8 +49,8 @@ npm run start (running on port 8080)
 
 - Single Project Page (UI)
 
-- Dummy dat
-a
+- Dummy data
+
 
 **Todo**
 
