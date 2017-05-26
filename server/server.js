@@ -35,8 +35,9 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import { fetchIsAuthenticated } from './util/fetchAuth';
-import projects from './routes/project.routes';
+import project from './routes/project.routes';
 import auth from './routes/auth.routes';
+import expert from './routes/expert.routes'; 
 import dummyData from './dummyData';
 import serverConfig from './config';
 import passport from './passport';
@@ -61,8 +62,9 @@ app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
 app.use(passport.initialize());
-app.use('/api', projects);
+app.use('/api', project);
 app.use('/api', auth);
+app.use('/api', expert);
 
 app.use(session({
   secret: 'secret',

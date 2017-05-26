@@ -1,4 +1,5 @@
 import callApi from '../util/apiCaller';
+import { fetchExpertInProject } from './ExpertActions';
 
 // Export Constants
 export const ADD_PROJECT = 'ADD_PROJECT';
@@ -40,9 +41,12 @@ export function fetchProjects() {
 }
 
 export function fetchProject(id) {
+  console.log('id', id)
   return (dispatch) => {
     return callApi(`project/${id}`).then(res => {
       dispatch(addProject(res.project));
+      console.log('res', res.project)
+      dispatch(fetchExpertInProject(res.project.experts));
     });
   };
 }

@@ -7,9 +7,11 @@ import moment from 'moment';
 
 // Import Actions
 import { fetchProject } from '../../actions/ProjectActions';
+import { fetchExpertInProject, changeExpertStatus } from '../../actions/ExpertActions';
 
 // Import Selectors
 import { getProject } from '../../reducers/ProjectReducer';
+import { getExperts } from '../../reducers/ExpertReducer';
 
 class ProjectDetailPage extends Component {
   constructor(props){
@@ -17,13 +19,16 @@ class ProjectDetailPage extends Component {
   }
   
   componentDidMount() {
-    this.props.dispatch(fetchProject(_.get(this.props, 'parms.id')));
+    console.log('mount', this.props)
+    this.props.dispatch(fetchProject(_.get(this.props, 'params.id')));
   }
   
   render(){
     const {
       project
     } = this.props;
+    
+    console.log('result', this.props)
 
     return (
       <div>
@@ -51,7 +56,7 @@ class ProjectDetailPage extends Component {
   }
 }
 
-// Actions required to provide data for this component to render in sever side.
+// Actions required to provide data for this component to render in server side.
 ProjectDetailPage.need = [params => {
   return fetchProject(_.get(params, 'id'));
 }];
@@ -60,6 +65,7 @@ ProjectDetailPage.need = [params => {
 function mapStateToProps(store, props) {
   return {
     project: getProject(store, _.get(props, 'params.id')),
+    experts: getExperts(store)
   };
 }
 
