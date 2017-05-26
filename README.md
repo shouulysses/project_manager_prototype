@@ -3,14 +3,19 @@
 _ETA: 28 May 2017_ ( Please come back on Monday, I am very very busy these few weeks... )
 
 Boilerplate based on https://mern.io
+
 Further modified by me in https://github.com/shouulysses/mern-starter
+
 By adding support of scss, eslint, file structure rearrangement, user auth using passport
 
 **Working cloud ide (public)**
+
 https://ide.c9.io/shouulysses/project_manager_mern
 
 **Development site:**
+
 https://project-manager-mern-shouulysses.c9users.io/
+
 
 **Basic instruction**
 
