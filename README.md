@@ -29,44 +29,48 @@ npm run start (running on port 8080)
 
 **Done**
 
-Basic setup
+- Basic setup
 
-User Auth
+- User Auth
 
-Database model setup
+- Database model setup
 
-Action, reducer of Project
+- Action, reducer of Project
 
-Project Listing Page
+- Project Listing Page
 
-Project Adding Feature
+- Project Adding Feature
+
 
 
 **WIP**
 
-Action, reducer of Expert (testing)
+- Action, reducer of Expert (testing)
 
-Single Project Page (UI)
+- Single Project Page (UI)
 
-Dummy data
+- Dummy dat
+a
 
 **Todo**
 
-Action, reducer of History
+- Action, reducer of History
 
-History Page
+- History Page
 
-Responsiveness improvement
+- Responsiveness improvement
 
-Using of slug instead of id
+- Component rearrangement
 
-Rubbish cleaning
+- Using of slug instead of id
 
-Readme
+- Rubbish cleaning
 
-Eslint
+- Readme
+
+- Eslint
 
 
 **Nice to have**
 
-Testing 
+Testing
