@@ -90,30 +90,37 @@ export function addExpertToProject(req, res) {
 }
 
 export function changeExpertStatus(req, res){
-  if(!req.body.data.expert || !req.body.data.project || !req.body.data.user.email || !req.body.data.newStatus) {
+  console.log('controller', req.body);
+  if(!req.body.expertId || !req.body.projectId || !req.body.user || !req.body.status) {
     return res.status(403).json({
       message: 'Data not entered'
     });
   }
     
-  Expert.update({ 
-    _id: req.body.expert._id,
-    'projects._id': req.body.project._id
+  Expert.findOneAndUpdate({ 
+    _id: req.body.expertId,
+    'projects._id': req.body.projectId
   }, {
-    $set: { "projects.$.status": req.body.expert.status }
-  }).exec((err, expert) => {
-    if (err)
-      res.status(500).json({ message: err });
-  }).then(expert => {
-    History.insert({
-      projectrID: req.body.expert.title,
-      expertId: req.body.expert.name,
-      userId: req.body.user.email,
-      result: req.body.newStatus
-    }).exec((err, history) => {
-      if (err)
-        res.status(500).json({ message: err });
+    $set: { "projects.$.status": req.body.status }
+  }, {
+    new: true
+  })
+  .then((expert) => {
+    console.log('yo');
+    const history = new History({
+      expertId: req.body.expertId,
+      projectId: req.body.projectId,
+      userId: req.body.user,
+      result: req.body.status,
+      dateAdded: moment()
     });
-    res.json({ expert });
+    history.save((err, history) => {
+      if (err)
+        res.status(500).json({ message: err })
+      console.log('err', err)
+      console.log('finish', expert)
+      console.log('history', history)
+      res.json({ expert });
+    });
   });
 }

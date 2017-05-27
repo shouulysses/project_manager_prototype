@@ -61,9 +61,15 @@ export function deleteExpertRequest(id) {
   };
 }
 
-export function changeExpertStatus(data) {
+export function changeExpertStatus(expertId, projectId, user, status) {
+  console.log('action', expertId, projectId, user, status)
   return (dispatch) => {
-    return callApi('/expertStatus', 'post', data)
-    .then(res => dispatch(updateExpert(res.expert)));
+    return callApi('expertStatus', 'post', {
+      expertId,
+      projectId,
+      user,
+      status
+    })
+    .then(res => dispatch(updateExpert( res.expert )));
   };
 }

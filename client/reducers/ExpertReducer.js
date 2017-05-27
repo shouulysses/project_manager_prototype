@@ -22,6 +22,7 @@ const ExpertReducer = (state = initialState, action) => {
       };
       
     case UPDATE_EXPERT :
+      console.log('reduce', state.data)
       let data = _.map(state.data, (item) => {
         if(item._id !== action.expert._id) {
           return item;
@@ -31,7 +32,7 @@ const ExpertReducer = (state = initialState, action) => {
           ...action.expert
         };    
       });
-      
+      console.log('reduce2', state.data)
       return {
         data
       };
@@ -46,7 +47,7 @@ const ExpertReducer = (state = initialState, action) => {
 // Get all experts
 export const getExperts = state => _.get(state, 'expert.data', []);
 
-// Get expert by id
+// Get expert by ids
 export const getProjectExperts = (state, ids) => {
   return _.filter(state.expert.data, (expert) => _.includes(ids, expert._id));
 };

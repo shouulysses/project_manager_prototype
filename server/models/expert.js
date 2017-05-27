@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import moment from 'moment';
 
 const Schema = mongoose.Schema;
 
@@ -9,7 +10,7 @@ const expertSchema = new Schema({
     _id: 'String',
     status: 'String' 
   }],
-  dateAdded: { type: 'Date', default: Date.now, required: true },
+  dateAdded: { type: 'Date', default: moment(), required: true },
 });
 
 export default mongoose.model('Expert', expertSchema);

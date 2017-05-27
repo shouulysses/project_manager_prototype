@@ -8,6 +8,9 @@ import DevTools from '../../containers/DevTools';
 import Sidebar from '../Sidebar';
 import Topbar from '../Topbar';
 
+// Import Selectors
+import { currentUser, isAuthenticated } from '../../reducers/AuthReducer';
+
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +22,10 @@ export class App extends Component {
   }
 
   render() {
-    
-    console.log('u', this.props.currentUser)
+    const {
+      isAuthenticated,
+      currentUser
+    } = this.props;
     
     return (
       <div>
@@ -45,10 +50,10 @@ export class App extends Component {
               },
             ]}
           />
-          <div className= {`container ${this.props.isAuthenticated && 'container-auth'}`}>
-          {this.props.isAuthenticated && [
+          <div className= {`container ${isAuthenticated && 'container-auth'}`}>
+          {isAuthenticated && [
             <Sidebar route={this.props.location.pathname} />,
-            <Topbar currentUser={this.props.currentUser} />
+            <Topbar currentUser={currentUser} />
           ]}
             {this.props.children}
           </div>
@@ -62,15 +67,16 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
+  currentUser: PropTypes.string.isRequired
 };
 
-// Retrieve data from store as props
-function mapStateToProps(store) {
+// Retrieve data from state as props
+function mapStateToProps(state) {
   return {
-    intl: store.intl,
-    isAuthenticated: store.auth.isAuthenticated,
-    currentUser: _.get(store, 'auth.user.email', '')
+    intl: state.intl,
+    isAuthenticated: isAuthenticated(state),
+    currentUser: currentUser(state)
   };
 }
 

@@ -46,7 +46,6 @@ export function fetchProjects() {
 export function fetchProject(id) {
   return (dispatch) => {
     return callApi(`project/${id}`).then(res => {
-      console.log('fetch action res', res)
       dispatch(addProject(res.project));
       dispatch(addExperts(res.experts));
     });

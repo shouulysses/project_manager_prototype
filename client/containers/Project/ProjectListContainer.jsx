@@ -12,6 +12,7 @@ import { addProjectRequest, fetchProjects, deleteProjectRequest } from '../../ac
 
 // Import Selectors
 import { getProjects } from '../../reducers/ProjectReducer';
+import { isAuthenticated } from '../../reducers/AuthReducer';
 
 class ProjectListContainer extends Component {
   constructor(props){
@@ -65,11 +66,11 @@ class ProjectListContainer extends Component {
 // Actions required to provide data for this component to render in server side.
 ProjectListContainer.need = [() => { return fetchProjects(); }];
 
-// Retrieve data from store as props
-function mapStateToProps(store) {
+// Retrieve data from state as props
+function mapStateToProps(state) {
   return {
-    projects: getProjects(store),
-    isAuthenticated: store.auth.isAuthenticated
+    projects: getProjects(state),
+    isAuthenticated: isAuthenticated(state)
   };
 }
 

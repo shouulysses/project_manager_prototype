@@ -1,4 +1,5 @@
 import * as ActionTypes from '../constants/constants';
+import * as _ from 'lodash';
 
 const initialState = {
   isAuthenticated: false,
@@ -56,5 +57,12 @@ const authReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+/* Selectors */
+
+// Get all current user (email)
+export const currentUser = state => _.get(state, 'auth.user.email', 'non-user');
+
+export const isAuthenticated = state => _.get(state, 'auth.isAuthenticated', false);
 
 export default authReducer;

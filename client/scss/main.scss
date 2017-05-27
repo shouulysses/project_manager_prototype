@@ -24,6 +24,11 @@ $topbar-height: 60px;
 @import './components/Sidebar';
 @import './components/Topbar';
 
+// Import from pages
+
+@import './pages/Project/ProjectDetailPage';
+
+
 // Import datepicker
 
 @import './datepicker';

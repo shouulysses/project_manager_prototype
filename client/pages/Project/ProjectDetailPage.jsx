@@ -12,6 +12,7 @@ import { changeExpertStatus } from '../../actions/ExpertActions';
 // Import Selectors
 import { getProject } from '../../reducers/ProjectReducer';
 import { getProjectExperts } from '../../reducers/ExpertReducer';
+import { currentUser } from '../../reducers/AuthReducer';
 
 class ProjectDetailPage extends Component {
   constructor(props){
@@ -19,16 +20,32 @@ class ProjectDetailPage extends Component {
   }
   
   componentDidMount() {
-    console.log('mount', this.props)
     this.props.dispatch(fetchProject(_.get(this.props, 'params.id')));
+  }
+  
+  getCurrentStatus = (index) => {
+    // getting the status of each experts
+    let expertStatus = _.map(_.flatten(_.map(_.get(this.props, 'experts'), 'projects')), expert => {
+      if(expert._id === _.get(this.props.project, '_id'))
+        return _.get(expert, 'status');
+    });
+    return _.get(expertStatus, index);
+  }
+  
+  changeExpertStatus = (index, id, currentStatus, expectedStatus) =>{
+    if(currentStatus === expectedStatus)
+      return;
+    console.log('page', currentStatus);
+    this.props.dispatch(changeExpertStatus(id, _.get(this.props, 'project._id'), this.props.currentUser, expectedStatus));
   }
   
   render(){
     const {
       project,
-      experts
+      experts,
+      currentUser
     } = this.props;
-  
+    
     return (
       <div className="col-10 center">
         <Helmet title={ _.get(project, 'title') } />
@@ -44,16 +61,35 @@ class ProjectDetailPage extends Component {
             <thead>
               <tr>
                 <th> Expert </th>
-                <th> Description </th>
-                <th> Status </th>
+                <th width="250px"> Description </th>
+                <th width="250px"> Status </th>
+                <th width="250px"> Approve/ Reject </th>
               </tr>
             </thead>
             <tbody>
-            {_.map( experts, expert => 
-              <tr>
+            {_.map( experts, (expert, index) => 
+              <tr key={`${_.get(expert, '_id')}-${index}`}>
                 <td>{ _.get(expert, 'name') }</td>
                 <td>{ _.get(expert, 'description') }</td>
-                <td>{ _.get(_.find(expert.projects, pro => pro._id === project._id), 'status') } </td>
+                <td className="capitalize">{ this.getCurrentStatus(index) } </td>
+                <td>
+                <div className="ui large buttons">
+                  <Button 
+                    className={`ui button ${ this.getCurrentStatus(index) === 'approve' && 'active'}`}
+                    onClick={() => this.changeExpertStatus(index, _.get(expert, '_id'), this.getCurrentStatus(index), 'approve')}
+                  >
+                  Approve
+                  </Button>
+                  <div className="or"></div>
+                  <Button 
+                    className={`ui button ${ this.getCurrentStatus(index) === 'reject' && 'active'}`}
+                    onClick={() => this.changeExpertStatus(index, _.get(expert, '_id'), this.getCurrentStatus(index), 'reject')}
+                  >
+                  Reject
+                  </Button>
+                </div>
+                
+                </td>
               </tr>
             )}
             </tbody>
@@ -70,11 +106,12 @@ ProjectDetailPage.need = [params => {
 }];
 
 // Retrieve data from store as props
-function mapStateToProps(store, props) {
-  let currentProject = getProject(store, _.get(props, 'params.id'));
+function mapStateToProps(state, props) {
+  let currentProject = getProject(state, _.get(props, 'params.id'));
   return {
     project: currentProject,
-    experts: getProjectExperts(store, currentProject.experts)
+    experts: getProjectExperts(state, currentProject.experts),
+    currentUser: currentUser(state)
   };
 }
 
@@ -86,6 +123,7 @@ ProjectDetailPage.propTypes = {
     dateAdded: PropTypes.string.isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
+  currentUser: PropTypes.string.isRequired
 };
 
 export default connect(mapStateToProps)(ProjectDetailPage);
