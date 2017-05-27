@@ -22,7 +22,6 @@ const ExpertReducer = (state = initialState, action) => {
       };
       
     case UPDATE_EXPERT :
-      console.log('reduce', state.data)
       let data = _.map(state.data, (item) => {
         if(item._id !== action.expert._id) {
           return item;
@@ -32,10 +31,7 @@ const ExpertReducer = (state = initialState, action) => {
           ...action.expert
         };    
       });
-      console.log('reduce2', state.data)
-      return {
-        data
-      };
+      return { data };
 
     default:
       return state;
