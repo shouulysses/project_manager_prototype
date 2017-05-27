@@ -35,7 +35,6 @@ class ProjectDetailPage extends Component {
   changeExpertStatus = (index, id, currentStatus, expectedStatus) =>{
     if(currentStatus === expectedStatus)
       return;
-    console.log('page', currentStatus);
     this.props.dispatch(changeExpertStatus(id, _.get(this.props, 'project._id'), this.props.currentUser, expectedStatus));
   }
   
@@ -43,7 +42,6 @@ class ProjectDetailPage extends Component {
     const {
       project,
       experts,
-      currentUser
     } = this.props;
     
     return (

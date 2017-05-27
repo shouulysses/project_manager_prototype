@@ -90,7 +90,6 @@ export function addExpertToProject(req, res) {
 }
 
 export function changeExpertStatus(req, res){
-  console.log('controller', req.body);
   if(!req.body.expertId || !req.body.projectId || !req.body.user || !req.body.status) {
     return res.status(403).json({
       message: 'Data not entered'
@@ -106,7 +105,6 @@ export function changeExpertStatus(req, res){
     new: true
   })
   .then((expert) => {
-    console.log('yo');
     const history = new History({
       expertId: req.body.expertId,
       projectId: req.body.projectId,
@@ -116,10 +114,7 @@ export function changeExpertStatus(req, res){
     });
     history.save((err, history) => {
       if (err)
-        res.status(500).json({ message: err })
-      console.log('err', err)
-      console.log('finish', expert)
-      console.log('history', history)
+        res.status(500).json({ message: err });
       res.json({ expert });
     });
   });
