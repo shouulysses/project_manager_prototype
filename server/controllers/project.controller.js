@@ -1,5 +1,7 @@
 import Project from '../models/project';
+import Expert from '../models/expert';
 import moment from 'moment';
+import * as _ from 'lodash';
 
 /**
  * Get all projects
@@ -9,9 +11,8 @@ import moment from 'moment';
  */
 export function getProjects(req, res) {
   Project.find().sort('-startDate').exec((err, projects) => {
-    if (err) {
-      res.status(500).send(err);
-    }
+    if (err)
+      res.status(500).json({ message: err });
     res.json({ projects });
   });
 }
@@ -23,19 +24,24 @@ export function getProjects(req, res) {
  * @returns void
  */
 export function getProject(req, res) {
-  if(req.params && req.params.id){
-    Project.findOne({ _id: req.params.id }).exec((err, project) => {
-      if (err) {
-        res.status(500).send(err);
-      }else{
-        res.json({ project });
-      }
+  if(_.get(req, 'params.id')) {
+    Project.findOne({ 
+      _id: req.params.id 
+    }, (err, project) => {
+      if(err)
+        res.status(500).json({ message: err });
+    })
+    .then((project) => {
+      Expert.find({
+        _id: {$in: project.experts }
+      }, (expertErr, experts) => {
+        if(expertErr)
+          res.status(500).json({ message: expertErr });
+        res.json({ project, experts });
+      });
     });
-  }else{
-    res.json({ });
   }
 }
-
 
 /**
  * Save a project
@@ -54,11 +60,8 @@ export function addProject(req, res) {
   newProject.status = moment(req.body.project.startDate) >= moment() ? 'new' : 'expired';
   newProject.dateAdded = moment();
   newProject.save((err, saved) => {
-    if (err) {
-      res.status(500).json({
-        message: err
-      });
-    }
+    if (err)
+      res.status(500).json({ message: err });
     res.json({ project: saved });
   });
 }

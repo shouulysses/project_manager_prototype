@@ -5,9 +5,6 @@ const router = new Router();
 // Get all experts
 router.route('/experts').get(expertController.getExperts);
 
-// Get one expert by cuid
-router.route('/expert/project').get(expertController.getExpertInProject);
-
 // Add a new expert
 router.route('/addExpert').post(expertController.addExpert);
 

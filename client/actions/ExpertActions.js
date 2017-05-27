@@ -47,15 +47,6 @@ export function fetchExperts() {
   };
 }
 
-export function fetchExpertInProject(id) {
-  console.log('action', id);
-  return (dispatch) => {
-    return callApi(`expert/project`).then(res => {
-      dispatch(addExpert(res.expert));
-    });
-  };
-}
-
 export function deleteExpert(id) {
   return {
     type: DELETE_EXPERT,

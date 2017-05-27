@@ -1,5 +1,5 @@
 import callApi from '../util/apiCaller';
-import { fetchExpertInProject } from './ExpertActions';
+import { addExperts } from './ExpertActions';
 
 // Export Constants
 export const ADD_PROJECT = 'ADD_PROJECT';
@@ -21,7 +21,10 @@ export function addProjectRequest(project) {
         title: project.title,
         startDate: project.startDate,
       },
-    }).then(res => dispatch(addProject(res.project)));
+    })
+    .then(
+      res => dispatch(addProject(res.project))
+    );
   };
 }
 
@@ -41,12 +44,11 @@ export function fetchProjects() {
 }
 
 export function fetchProject(id) {
-  console.log('id', id)
   return (dispatch) => {
     return callApi(`project/${id}`).then(res => {
+      console.log('fetch action res', res)
       dispatch(addProject(res.project));
-      console.log('res', res.project)
-      dispatch(fetchExpertInProject(res.project.experts));
+      dispatch(addExperts(res.experts));
     });
   };
 }

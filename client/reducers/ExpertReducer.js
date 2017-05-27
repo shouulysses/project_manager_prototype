@@ -44,15 +44,11 @@ const ExpertReducer = (state = initialState, action) => {
 /* Selectors */
 
 // Get all experts
-export const getExperts = state => _.get(state, 'experts.data', []);
+export const getExperts = state => _.get(state, 'expert.data', []);
 
 // Get expert by id
-export const getExpertInProject = (state, ids) => {
-  _.filter(state.experts.data, (expert) => {
-    _.each(ids, (id) => {
-      return expert._id === id;
-    });
-  });
+export const getProjectExperts = (state, ids) => {
+  return _.filter(state.expert.data, (expert) => _.includes(ids, expert._id));
 };
 
 // Export Reducer

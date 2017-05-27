@@ -7,11 +7,11 @@ import moment from 'moment';
 
 // Import Actions
 import { fetchProject } from '../../actions/ProjectActions';
-import { fetchExpertInProject, changeExpertStatus } from '../../actions/ExpertActions';
+import { changeExpertStatus } from '../../actions/ExpertActions';
 
 // Import Selectors
 import { getProject } from '../../reducers/ProjectReducer';
-import { getExperts } from '../../reducers/ExpertReducer';
+import { getProjectExperts } from '../../reducers/ExpertReducer';
 
 class ProjectDetailPage extends Component {
   constructor(props){
@@ -25,13 +25,12 @@ class ProjectDetailPage extends Component {
   
   render(){
     const {
-      project
+      project,
+      experts
     } = this.props;
-    
-    console.log('result', this.props)
-
+  
     return (
-      <div>
+      <div className="col-10 center">
         <Helmet title={ _.get(project, 'title') } />
         <div className="project-detail">
           <h2>{ _.get(project, 'title') } ({ _.get(project, 'status') })</h2>
@@ -45,9 +44,18 @@ class ProjectDetailPage extends Component {
             <thead>
               <tr>
                 <th> Expert </th>
+                <th> Description </th>
+                <th> Status </th>
               </tr>
             </thead>
             <tbody>
+            {_.map( experts, expert => 
+              <tr>
+                <td>{ _.get(expert, 'name') }</td>
+                <td>{ _.get(expert, 'description') }</td>
+                <td>{ _.get(_.find(expert.projects, pro => pro._id === project._id), 'status') } </td>
+              </tr>
+            )}
             </tbody>
           </Table>
         </div>
@@ -63,9 +71,10 @@ ProjectDetailPage.need = [params => {
 
 // Retrieve data from store as props
 function mapStateToProps(store, props) {
+  let currentProject = getProject(store, _.get(props, 'params.id'));
   return {
-    project: getProject(store, _.get(props, 'params.id')),
-    experts: getExperts(store)
+    project: currentProject,
+    experts: getProjectExperts(store, currentProject.experts)
   };
 }
 

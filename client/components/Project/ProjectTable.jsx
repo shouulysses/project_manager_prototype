@@ -36,6 +36,10 @@ class ProjectTable extends Component {
   }
   
   render() {
+    const{
+      projects
+    } = this.state
+    
     return (
       <Table className="project-table ui sortable celled table">
         <thead>
@@ -48,7 +52,7 @@ class ProjectTable extends Component {
           </tr>
         </thead>
         <tbody>
-        {_.map(this.state.projects, (project) => 
+        {_.map(projects, project => 
           <tr>
             <td><Link to={ `/project/${ _.get(project, '_id') }` }>{ _.get(project, 'title', 'N/A') }</Link></td>
             <td width='160px'>{ moment(_.get(project, 'startDate')).format("MMM Do YYYY") || 'N/A' }</td>

@@ -32,7 +32,11 @@ const ProjectReducer = (state = initialState, action) => {
 export const getProjects = state => _.get(state, 'projects.data', []);
 
 // Get project by id
-export const getProject = (state, id) => state.projects.data.filter(project => project._id === id)[0];
+export const getProject = (state, id) => {
+  return _.filter(state.projects.data, project => {
+    return _.get(project, '_id') === id;
+  })[0];
+};
 
 // Export Reducer
 export default ProjectReducer;
