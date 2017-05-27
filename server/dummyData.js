@@ -1,62 +1,52 @@
 import Project from './models/project';
 import Expert from './models/expert';
 import moment from 'moment';
+import * as expertController from './controllers/expert.controller';
 
 export default function () {
+  let projectD_id = '';
+  let expert1_id = '';
+  let expert2_id = '';
   
-  //Project.remove({}).exec(()=>{});
-  //Expert.remove({}).exec(()=>{});
-
-  
-
   Project.count().exec((err, count) => {
-    console.log(count);
-    if (count > 0) {
+    if(count > 0){
+      console.log('dummy is not inputted');
       return;
     }
-
-    const project1 = new Project({ title: 'New Project A', startDate: moment('20170901'), status: 'new', dateAdded: moment() });
-    const project2 = new Project({ title: 'New Project B', startDate: moment('20170901'), status: 'new',  dateAdded: moment() });
-    const project3 = new Project({ title: 'New Project C', startDate: moment('20170901'), status: 'new',  dateAdded: moment() });
-    const project4 = new Project({ title: 'New Project D', startDate: moment('20170901'), status: 'pending', dateAdded: moment()});
-    const project5 = new Project({ title: 'New Project E', startDate: moment('20170501'), status: 'expired'});
-
-    Project.create([project1, project2, project3, project4, project5], (error) => {
-      if (error) {
-        console.log(error);
-      }
+    Project.remove( {})
+    .then(() => {
+      Expert.remove({})
+      .then(() => {
+        const project1 = new Project({ title: 'New Project A', startDate: moment('20170901'), status: 'new', dateAdded: moment() });
+        const project2 = new Project({ title: 'New Project B', startDate: moment('20170901'), status: 'new',  dateAdded: moment() });
+        const project3 = new Project({ title: 'New Project C', startDate: moment('20170901'), status: 'new',  dateAdded: moment() });
+        const project4 = new Project({ title: 'New Project D', startDate: moment('20170901'), status: 'pending', dateAdded: moment()});
+        const project5 = new Project({ title: 'New Project E', startDate: moment('20170501'), status: 'expired'});
+    
+        Project.create([project1, project2, project3, project4, project5], (error, project) => {
+          if (error) {
+            console.log(error);
+          }
+          projectD_id = project[3]._id;
+        })
+        .then(() => {
+          const expert1 = new Expert({  name: 'John', description: 'John is strong', dateAdded: moment() });
+          const expert2 = new Expert({  name: 'Tom', description: 'Tom is tall', dateAdded: moment() });
+              
+          Expert.create([expert1, expert2], (error, expert) => {
+            if (error) {
+              console.log(error);
+            }
+            expert1_id = expert[0]._id;
+            expert2_id = expert[1]._id;
+          })
+          .then(() => {
+            expertController.addExpertToProject({ body: { projectId: projectD_id, expertId: expert1_id } });
+            expertController.addExpertToProject({ body: { projectId: projectD_id, expertId: expert2_id } });
+            console.log('done inputting dummy')
+          });
+        });
+      });
     });
   });
-  
-  const project4_id = Project.findOne({ title: 'New Project D' })._id;
-  console.log(project4_id);
-  
-  Expert.count().exec((err, count) => {
-    console.log(count);
-    if (count > 0) {
-      return;
-    }
-    
-    const expert1 = new Expert({  name: 'John', description: 'John is strong', projects: [{'_id': project4_id, status: 'pending'}], dateAdded: moment() });
-    const expert2 = new Expert({  name: 'Tom', description: 'Tom is tall', projects: [{'_id': project4_id, status: 'pending'}], dateAdded: moment() });
-    
-    Expert.create([expert1, expert2], (error) => {
-      if (error) {
-        console.log(error);
-      }
-    });
-  });
-  
-  const expert1_id = Project.findOne({ name: 'John' })._id;
-  const expert2_id = Project.findOne({ name: 'Tom' })._id;
-  
-  Project.update({
-    title: 'New Project D'
-  }, {
-    $set:{
-      experts: [expert1_id, expert2_id]
-    }
-  });
-  
-  console.log('done');
 }

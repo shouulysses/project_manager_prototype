@@ -1,6 +1,6 @@
 import Project from '../models/project';
 import Expert from '../models/expert';
-import history from '../models/history';
+import History from '../models/history';
 import moment from 'moment';
 
 /**
@@ -76,10 +76,42 @@ export function deleteExpert(req, res) {
 
 
 export function addExpertToProject(req, res) {
-  
-  
-  
-  
+  if(!req.body.projectId || !req.body.expertId) {
+    return res.status(403).json({
+      message: 'Data not entered'
+    });
+  }
+  Expert.update({
+    _id: req.body.experId
+  }, {
+    $addToSet: {
+      $projects: {
+        _id: req.body.projectId,
+        status: 'pending'
+      }
+    }
+  }, (err) => {
+    if(err) {
+      res.status(500).json({
+        message: err
+      });
+    }
+  })
+  .then(() => {
+    Project.update({
+      _id: req.body.projectId
+    }, {
+      $addToSet: { experts: req.body.expertId }
+    }, (projectErr, project) => {
+      if(projectErr) {
+        res.status(500).json({
+          message: projectErr
+        });
+      }
+      if(res)
+        res.json({ project });
+    });
+  });
 }
 
 export function changeExpertStatus(req, res){
@@ -101,7 +133,7 @@ export function changeExpertStatus(req, res){
       });
     }
   }).then(expert => {
-    history.insert({
+    History.insert({
       projectrID: req.body.expert.title,
       expertId: req.body.expert.name,
       userId: req.body.user.email,
