@@ -115,6 +115,7 @@ export function changeExpertStatus(req, res){
     history.save((err, history) => {
       if (err)
         res.status(500).json({ message: err });
+      console.log('saved', history)
       res.json({ expert });
     });
   });

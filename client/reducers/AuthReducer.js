@@ -58,7 +58,7 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-/* Selectors */
+// Selectors
 
 // Get all current user (email)
 export const currentUser = state => _.get(state, 'auth.user.email', 'non-user');

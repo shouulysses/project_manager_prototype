@@ -19,6 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./containers/Auth/LoginContainer');
   require('./containers/Auth/SignupContainer');
   require('./pages/Project/ProjectDetailPage');
+  require('./pages/History/HistoryListingPage');
 }
 
 // react-router setup with code-splitting
@@ -53,6 +54,14 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./pages/Project/ProjectDetailPage').default);
+        });
+      }}
+    />
+    <Route
+      path="/history"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./pages/History/HistoryListingPage').default);
         });
       }}
     />

@@ -26,14 +26,14 @@ const ProjectReducer = (state = initialState, action) => {
   }
 };
 
-/* Selectors */
+// Selectors
 
 // Get all projects
-export const getProjects = state => _.get(state, 'projects.data', []);
+export const getProjects = state => _.get(state, 'project.data', []);
 
 // Get project by id
 export const getProject = (state, id) => {
-  return _.filter(state.projects.data, project => {
+  return _.filter(state.project.data, project => {
     return _.get(project, '_id') === id;
   })[0];
 };

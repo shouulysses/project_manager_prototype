@@ -38,7 +38,7 @@ const ExpertReducer = (state = initialState, action) => {
   }
 };
 
-/* Selectors */
+// Selectors
 
 // Get all experts
 export const getExperts = state => _.get(state, 'expert.data', []);

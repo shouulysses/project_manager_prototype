@@ -5,16 +5,18 @@ import { combineReducers } from 'redux';
 
 // Import Reducers
 import app from './reducers/AppReducer';
-import projects from './reducers/ProjectReducer';
+import project from './reducers/ProjectReducer';
 import intl from './reducers/IntlReducer';
 import auth from './reducers/AuthReducer';
 import expert from './reducers/ExpertReducer';
+import history from './reducers/HistoryReducer';
 
 // Combine all reducers into one root reducer
 export default combineReducers({
   app,
-  projects,
+  project,
   intl,
   auth,
-  expert
+  expert,
+  history
 });

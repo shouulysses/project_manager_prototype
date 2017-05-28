@@ -33,7 +33,7 @@ export class App extends Component {
         <div>
           <Helmet
             title="Lynk Project Manager"
-            titleTemplate="%s - Blog App"
+            titleTemplate="%s - Lynk Project Manager"
             link={[{ 
               rel: "stylesheet",
               href: "//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css" 

@@ -37,7 +37,8 @@ import { fetchComponentData } from './util/fetchData';
 import { fetchIsAuthenticated } from './util/fetchAuth';
 import project from './routes/project.routes';
 import auth from './routes/auth.routes';
-import expert from './routes/expert.routes'; 
+import expert from './routes/expert.routes';
+import history from './routes/history.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
 import passport from './passport';
@@ -65,6 +66,7 @@ app.use(passport.initialize());
 app.use('/api', project);
 app.use('/api', auth);
 app.use('/api', expert);
+app.use('/api', history);
 
 app.use(session({
   secret: 'secret',
