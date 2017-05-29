@@ -53,10 +53,6 @@ npm run start (running on port 8080)
 
 **WIP**
 
-- Logo
-
-- Bug in fetching History
-
 **Todo** (Beyond requirement - will be further done on 30 May 2017)
 
 - Responsiveness improvement

@@ -27,7 +27,8 @@ export class App extends Component {
       currentUser,
       location
     } = this.props;
-    
+    console.log(location.pathname)
+    const authBool = (location.pathname === '/' || location.pathname.includes('signup'));
     
     return (
       <div>
@@ -52,8 +53,8 @@ export class App extends Component {
               },
             ]}
           />
-          <div className= {`container ${(location.pathname !== '/' && location.pahtname !== '/signup') && 'container-auth'}`}>
-          {(location.pathname !== '/' && location.pahtname !== '/signup') && [
+          <div className= {`container ${!authBool && 'container-auth'}`}>
+          {!authBool && [
             <Sidebar route={location.pathname} />,
             <Topbar currentUser={currentUser} />
           ]}

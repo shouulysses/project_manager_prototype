@@ -87,6 +87,13 @@ function mapStateToProps(state, props) {
 }
 
 HistoryListingPage.propTypes = {
+  histories: PropTypes.shape({
+    project_title: PropTypes.string.isRequired,
+    expert_name: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+    result: PropTypes.string.isRequired,
+    dateAdded: PropTypes.string.isRequired
+  }).isRequired,
   dispatch: PropTypes.func.isRequired
 };
 

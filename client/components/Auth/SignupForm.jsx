@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { Link } from 'react-router';
 
 //Import Images
 import logo from '../../public/static/logo.svg';
 
-export default class SignupForm extends React.Component {
+class SignupForm extends Component {
   constructor(props, context) {
     super(props, context);
     this.handleSignup = this.handleSignup.bind(this);
@@ -53,3 +53,9 @@ export default class SignupForm extends React.Component {
   }
 };
 
+SignupForm.propTypes = {
+  handleSignup: PropTypes.func.isRequired,
+  message: PropTypes.string
+};
+
+export default SignupForm;
