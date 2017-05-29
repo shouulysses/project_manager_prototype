@@ -55,6 +55,8 @@ npm run start (running on port 8080)
 
 **Todo** (Beyond requirement - will be further done on 30 May 2017)
 
+- 'Load more' in history page
+
 - Responsiveness improvement
 
 - Component rearrangement

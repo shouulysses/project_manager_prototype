@@ -8,6 +8,7 @@ export default function () {
   let projectD_id = '';
   let expert1_id = '';
   let expert2_id = '';
+  let expert3_id = '';
   
   Project.count().exec((err, count) => {
     if(count > 0){
@@ -35,17 +36,20 @@ export default function () {
           .then(() => {
             const expert1 = new Expert({  name: 'John', description: 'John is strong', dateAdded: moment() });
             const expert2 = new Expert({  name: 'Tom', description: 'Tom is tall', dateAdded: moment() });
+            const expert3 = new Expert({  name: 'Peter', description: 'Peter is fast', dateAdded: moment() });
                 
-            Expert.create([expert1, expert2], (error, expert) => {
+            Expert.create([expert1, expert2, expert3], (error, expert) => {
               if (error) {
                 console.log(error);
               }
               expert1_id = expert[0]._id;
               expert2_id = expert[1]._id;
+              expert3_id = expert[2]._id;
             })
             .then(() => {
               expertController.addExpertToProject({ body: { projectId: projectD_id, expertId: expert1_id } });
               expertController.addExpertToProject({ body: { projectId: projectD_id, expertId: expert2_id } });
+              expertController.addExpertToProject({ body: { projectId: projectD_id, expertId: expert3_id } });
               console.log('done inputting dummy');
             });
           });

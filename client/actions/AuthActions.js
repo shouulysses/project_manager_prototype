@@ -152,7 +152,6 @@ export function signup(creds) {
       }
       localStorage.setItem('token', user.token);
       dispatch(loginSuccess(user, creds.email));
-      console.log('!!!',user);
       return null;
     })
     .catch((err) => {

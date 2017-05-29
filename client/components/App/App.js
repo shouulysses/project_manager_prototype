@@ -27,12 +27,12 @@ export class App extends Component {
       currentUser,
       location
     } = this.props;
-    console.log(location.pathname)
+ 
     const authBool = (location.pathname === '/' || location.pathname.includes('signup'));
     
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
+        {/*this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />*/}
         <div>
           <Helmet
             title="Lynk Project Manager"
