@@ -15,12 +15,9 @@ export function addHistories(histories) {
 }
 
 export function fetchHistories(limit) {
-  console.log('fetch',  limit)
   return (dispatch) => {
     return callApi('histories').then(res => {
-      console.log('p', res.projects)
       let histories = _.map(res.histories, history => {
-        console.log('h', history)
         return {
           project_title: _.find(res.projects, ['_id', history.projectId]).title,
           expert_name: _.find(res.experts, ['_id', history.expertId ]).name,
@@ -29,7 +26,6 @@ export function fetchHistories(limit) {
           dateAdded: history.dateAdded
         };
       });
-      console.log('fetched', histories)
       dispatch(addHistories(histories));
     });
   };

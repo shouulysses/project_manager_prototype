@@ -1,12 +1,12 @@
 ## A simple full-stack solution for a Project Manager
 
-_ETA: 28 May 2017_ ( Please come back on Monday, I am very very busy these few weeks... )
-
+**Description**
 Boilerplate based on https://mern.io
 
 Further modified by me in https://github.com/shouulysses/mern-starter
 
 By adding support of scss, eslint, file structure rearrangement, user auth using passport
+
 
 **Working cloud ide (public)**
 
@@ -41,22 +41,23 @@ npm run start (running on port 8080)
 
 - Project Adding Feature
 
-
-
-**WIP**
-
 - Action, reducer of Expert (testing)
 
-- Single Project Page (UI)
+- Single Project Page
 
 - Dummy data
-
-
-**Todo**
-
+- 
 - Action, reducer of History
 
 - History Page
+
+**WIP**
+
+- Logo
+
+- Bug in fetching History
+
+**Todo** (Beyond requirement - will be further done on 30 May 2017)
 
 - Responsiveness improvement
 
@@ -70,7 +71,4 @@ npm run start (running on port 8080)
 
 - Eslint
 
-
-**Nice to have**
-
-Testing
+- Testing

@@ -8,8 +8,6 @@ import moment from 'moment';
 import { fetchHistories } from '../../actions/HistoryActions';
 
 // Import Selectors
-import { getProjects } from '../../reducers/ProjectReducer';
-import { getExperts } from '../../reducers/ExpertReducer';
 import { getHistories } from '../../reducers/HistoryReducer';
 
 
@@ -18,7 +16,7 @@ class HistoryListingPage extends Component {
     super(props);
     this.state = {
       histories: this.props.histories
-    }
+    };
   }
   
   componentDidMount() {
@@ -43,28 +41,31 @@ class HistoryListingPage extends Component {
   }
   
   render(){
-    const {
-      projects,
-      experts
-    } = this.props;
-    
-    const {
-      histories
-    } = this.state;
+    console.log('state', this.state.histories)
     
     return (
-      <div className="history-listing">
+      <div className="history-listing col-10 center pt2">
         <Table className="ui celled table">
           <thead>
             <tr>
-              { this.renderHeader('Title', 'title') }
-              { this.renderHeader('Start Date', 'startDate') }
-              { this.renderHeader('Status', 'status') }
+              { this.renderHeader('Project Title', 'project_title') }
+              { this.renderHeader('Expert Name', 'expert_name') }
+              { this.renderHeader('User', 'user') }
+              { this.renderHeader('result', 'result') }
               { this.renderHeader('Date Added', 'dateAdded') }
             </tr>
           </thead>
-        
-        
+          <tbody>
+          {_.map( this.state.histories, (history, index) =>
+            <tr key={`${_.get(history, '_id')}-${index}`}>
+              <td>{ _.get(history, 'project_title') }</td>
+              <td>{ _.get(history, 'expert_name') }</td>
+              <td>{ _.get(history, 'user') }</td>
+              <td className="capitalize">{ _.get(history,'result') } </td>
+              <td>{moment(_.get(history, 'dateAdded')).format("MMM Do YYYY") || 'N/A'}</td>
+              </tr>
+            )}
+          </tbody>
         </Table>
       </div>
     );
@@ -78,9 +79,7 @@ HistoryListingPage.need = [params => {
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
   return {
-    histories: getHistories(),
-    projects: getProjects(),
-    experts: getExperts()
+    histories: getHistories(state),
   };
 }
 

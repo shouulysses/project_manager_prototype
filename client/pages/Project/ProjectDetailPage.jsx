@@ -45,7 +45,7 @@ class ProjectDetailPage extends Component {
     } = this.props;
     
     return (
-      <div className="col-10 center">
+      <div className="col-10 center pt2">
         <Helmet title={ _.get(project, 'title') } />
         <div className="project-detail">
           <h2>{ _.get(project, 'title') } ({ _.get(project, 'status') })</h2>
