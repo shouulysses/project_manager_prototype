@@ -23,6 +23,11 @@ class HistoryListingPage extends Component {
     this.props.dispatch(fetchHistories());
   }
   
+  componentWillReceiveProps(nextProps){
+    if(this.props.histories !== nextProps.histories)
+      this.setState({ histories: nextProps.histories});
+  }
+  
   sortFunction = (field, order = false) => {
     let histories = order
     ? _.sortBy(this.state.histories, field)
@@ -42,6 +47,7 @@ class HistoryListingPage extends Component {
   
   render(){
     console.log('state', this.state.histories)
+    console.log('props', this.props.histories)
     
     return (
       <div className="history-listing col-10 center pt2">

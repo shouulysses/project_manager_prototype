@@ -24,8 +24,10 @@ export class App extends Component {
   render() {
     const {
       isAuthenticated,
-      currentUser
+      currentUser,
+      location
     } = this.props;
+    
     
     return (
       <div>
@@ -50,9 +52,9 @@ export class App extends Component {
               },
             ]}
           />
-          <div className= {`container ${isAuthenticated && 'container-auth'}`}>
-          {isAuthenticated && [
-            <Sidebar route={this.props.location.pathname} />,
+          <div className= {`container ${(location.pathname !== '/' && location.pahtname !== '/signup') && 'container-auth'}`}>
+          {(location.pathname !== '/' && location.pahtname !== '/signup') && [
+            <Sidebar route={location.pathname} />,
             <Topbar currentUser={currentUser} />
           ]}
             {this.props.children}

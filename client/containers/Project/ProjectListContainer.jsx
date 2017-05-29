@@ -24,8 +24,8 @@ class ProjectListContainer extends Component {
   }
   
   componentDidUpdate(prevProps){
-    // if(!this.props.isAuthenticated)
-    //   this.context.router.push('/');
+    if(!this.props.isAuthenticated)
+      this.context.router.push('/');
   }
 
   // Add new project  
