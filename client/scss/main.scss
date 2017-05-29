@@ -16,8 +16,6 @@ $topbar-height: 60px;
 
 // Import from components
 
-@import './components/App/Header';
-@import './components/App/Footer';
 @import './components/Auth/LoginForm';
 @import './components/Project/AddProjectComponent';
 @import './components/Project/ProjectTable';

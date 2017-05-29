@@ -46,9 +46,6 @@ class HistoryListingPage extends Component {
   }
   
   render(){
-    console.log('state', this.state.histories)
-    console.log('props', this.props.histories)
-    
     return (
       <div className="history-listing col-10 center pt2">
         <Table className="ui celled table">

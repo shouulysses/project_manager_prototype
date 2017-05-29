@@ -11,7 +11,6 @@ import * as _ from 'lodash';
  **/
 
 export function getHistories(req, res) {
-  console.log('reqbody', req.body)
   History.find()
   .limit(req.body.limit || 50)
   .sort('dateAdded')

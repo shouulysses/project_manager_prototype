@@ -3,7 +3,7 @@ import { Form, Button } from 'semantic-ui-react';
 import { Link } from 'react-router';
 
 //Import Images
-import logo from '../../public/static/logo.png';
+import logo from '../../public/static/logo.svg';
 
 export default class SignupForm extends React.Component {
   constructor(props, context) {
