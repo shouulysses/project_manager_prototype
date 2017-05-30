@@ -5,13 +5,8 @@ import moment from 'moment';
 import * as expertController from './controllers/expert.controller';
 
 export default function () {
-  let projectD_id = '';
-  let expert1_id = '';
-  let expert2_id = '';
-  let expert3_id = '';
-  
   Project.count().exec((err, count) => {
-    if(count > 0){
+    if(count > 1000){
       console.log('dummy is not inputted');
       return;
     }
@@ -28,28 +23,22 @@ export default function () {
           const project5 = new Project({ title: 'New Project E', startDate: moment('20170501'), status: 'expired'});
       
           Project.create([project1, project2, project3, project4, project5], (error, project) => {
-            if (error) {
+            if (error)
               console.log(error);
-            }
-            projectD_id = project[3]._id;
           })
-          .then(() => {
+          .then((projects) => {
             const expert1 = new Expert({  name: 'John', description: 'John is strong', dateAdded: moment() });
             const expert2 = new Expert({  name: 'Tom', description: 'Tom is tall', dateAdded: moment() });
             const expert3 = new Expert({  name: 'Peter', description: 'Peter is fast', dateAdded: moment() });
-                
+
             Expert.create([expert1, expert2, expert3], (error, expert) => {
-              if (error) {
+              if (error)
                 console.log(error);
-              }
-              expert1_id = expert[0]._id;
-              expert2_id = expert[1]._id;
-              expert3_id = expert[2]._id;
             })
-            .then(() => {
-              expertController.addExpertToProject({ body: { projectId: projectD_id, expertId: expert1_id } });
-              expertController.addExpertToProject({ body: { projectId: projectD_id, expertId: expert2_id } });
-              expertController.addExpertToProject({ body: { projectId: projectD_id, expertId: expert3_id } });
+            .then((expert) => {
+              expertController.addExpertToProject({ body: { projectId: projects[3]._id, expertId: expert[0]._id } });
+              expertController.addExpertToProject({ body: { projectId: projects[3]._id, expertId: expert[1]._id } });
+              expertController.addExpertToProject({ body: { projectId: projects[3]._id, expertId: expert[2]._id } });
               console.log('done inputting dummy');
             });
           });
