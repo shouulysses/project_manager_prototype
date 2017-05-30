@@ -4,6 +4,9 @@
     width: 10px;
     height: 15px;
     margin-left: 12px;
+    @include breakpoint(0, 676){
+      display: none;
+    }
   }
   .arrow-down{
     position: absolute;
@@ -11,5 +14,8 @@
     height: 15px;
     margin-top: 10px;
     margin-left: 30px;
+    @include breakpoint(0, 676){
+      display: none;
+    }
   }
 }

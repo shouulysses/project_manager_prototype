@@ -38,7 +38,6 @@ class HistoryListingPage extends Component {
   }
   
   loadMore = (limit, skip) => {
-    console.log('load', limit, skip)
     this.props.dispatch(fetchHistories(limit, skip));
     this.setState({
       limit: this.state.limit + 10,
@@ -58,8 +57,8 @@ class HistoryListingPage extends Component {
   
   render(){
     return (
-      <div className="history-listing col-10 center pt2">
-        <Table className="ui celled table">
+      <div className="history-listing col-10 center pt2 overflow-wrapper">
+        <Table className="ui celled table unstackable">
           <thead>
             <tr>
               { this.renderHeader('Project Title', 'project_title') }

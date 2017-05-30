@@ -59,43 +59,45 @@ class ProjectDetailPage extends Component {
             <div className="col-6 col-lg-3">Data Added:</div>
             <div className="col-6 col-lg-3">{ moment(_.get(project, 'dateAdded')).format("MMM Do YYYY") || 'N/A' }</div>
           </div>
-          <Table className="project-detail-table table ui celled">
-            <thead>
-              <tr>
-                <th> Expert </th>
-                <th width="250px"> Description </th>
-                <th width="250px"> Status </th>
-                <th width="250px"> Approve/ Reject </th>
-              </tr>
-            </thead>
-            <tbody>
-            {_.map( experts, (expert, index) => 
-              <tr key={`${_.get(expert, '_id')}-${index}`}>
-                <td>{ _.get(expert, 'name') }</td>
-                <td>{ _.get(expert, 'description') }</td>
-                <td className="capitalize">{ this.getCurrentStatus(index) } </td>
-                <td>
-                <div className="ui large buttons">
-                  <Button 
-                    className={`ui button ${ this.getCurrentStatus(index) === 'approve' && 'active'}`}
-                    onClick={() => this.changeExpertStatus(index, _.get(expert, '_id'), this.getCurrentStatus(index), 'approve')}
-                  >
-                  Approve
-                  </Button>
-                  <div className="or"></div>
-                  <Button 
-                    className={`ui button ${ this.getCurrentStatus(index) === 'reject' && 'active'}`}
-                    onClick={() => this.changeExpertStatus(index, _.get(expert, '_id'), this.getCurrentStatus(index), 'reject')}
-                  >
-                  Reject
-                  </Button>
-                </div>
-                
-                </td>
-              </tr>
-            )}
-            </tbody>
-          </Table>
+          <div className="overflow-wrapper mt2">
+            <Table className="project-detail-table table ui celled unstackable">
+              <thead>
+                <tr>
+                  <th> Expert </th>
+                  <th width="250px"> Description </th>
+                  <th width="250px"> Status </th>
+                  <th width="250px"> Approve/ Reject </th>
+                </tr>
+              </thead>
+              <tbody>
+              {_.map( experts, (expert, index) => 
+                <tr key={`${_.get(expert, '_id')}-${index}`}>
+                  <td>{ _.get(expert, 'name') }</td>
+                  <td>{ _.get(expert, 'description') }</td>
+                  <td className="capitalize">{ this.getCurrentStatus(index) } </td>
+                  <td>
+                  <div className="ui large buttons">
+                    <Button 
+                      className={`ui button ${ this.getCurrentStatus(index) === 'approve' && 'active'}`}
+                      onClick={() => this.changeExpertStatus(index, _.get(expert, '_id'), this.getCurrentStatus(index), 'approve')}
+                    >
+                    Approve
+                    </Button>
+                    <div className="or"></div>
+                    <Button 
+                      className={`ui button ${ this.getCurrentStatus(index) === 'reject' && 'active'}`}
+                      onClick={() => this.changeExpertStatus(index, _.get(expert, '_id'), this.getCurrentStatus(index), 'reject')}
+                    >
+                    Reject
+                    </Button>
+                  </div>
+                  
+                  </td>
+                </tr>
+              )}
+              </tbody>
+            </Table>
+          </div>
         </div>
       </div>
     );

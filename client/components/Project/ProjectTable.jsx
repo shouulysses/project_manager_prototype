@@ -37,28 +37,30 @@ class ProjectTable extends Component {
   
   render() {
     return (
-      <Table className="project-table ui sortable celled table">
-        <thead>
-          <tr>
-            { this.renderHeader('Title', 'title') }
-            { this.renderHeader('Start Date', 'startDate') }
-            { this.renderHeader('Status', 'status') }
-            { this.renderHeader('Date Added', 'dateAdded') }
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-        {_.map(this.state.projects, project => 
-          <tr>
-            <td><Link to={ `/project/${ _.get(project, '_id') }` }>{ _.get(project, 'title', 'N/A') }</Link></td>
-            <td width='160px'>{ moment(_.get(project, 'startDate')).format("MMM Do YYYY") || 'N/A' }</td>
-            <td width='160px'>{ _.get(project, 'status', 'N/A') }</td>
-            <td width='160px'>{ moment(_.get(project, 'dateAdded')).format("MMM Do YYYY") || 'N/A' }</td>
-            <td width='160px'><Button onClick={ ()=>{ this.props.handleDeleteProject(_.get(project, '_id')) } }>Delete</Button></td>
-          </tr>
-        )}
-        </tbody>
-      </Table>
+      <div className="overflow-wrapper">
+        <Table className="project-table unstackable ui sortable celled table">
+          <thead>
+            <tr>
+              { this.renderHeader('Title', 'title') }
+              { this.renderHeader('Start Date', 'startDate') }
+              { this.renderHeader('Status', 'status') }
+              { this.renderHeader('Date Added', 'dateAdded') }
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+          {_.map(this.state.projects, project => 
+            <tr>
+              <td><Link to={ `/project/${ _.get(project, '_id') }` }>{ _.get(project, 'title', 'N/A') }</Link></td>
+              <td width='160px'>{ moment(_.get(project, 'startDate')).format("MMM Do YYYY") || 'N/A' }</td>
+              <td width='160px'>{ _.get(project, 'status', 'N/A') }</td>
+              <td width='160px'>{ moment(_.get(project, 'dateAdded')).format("MMM Do YYYY") || 'N/A' }</td>
+              <td width='160px'><Button onClick={ ()=>{ this.props.handleDeleteProject(_.get(project, '_id')) } }>Delete</Button></td>
+            </tr>
+          )}
+          </tbody>
+        </Table>
+      </div>
     );
   }
 }

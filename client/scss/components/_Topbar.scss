@@ -7,10 +7,17 @@
   background: white;
   height: $topbar-height;
   border-bottom: 1px solid black;
+  @include breakpoint(0, 992){
+    border: 0;
+    left: 0;
+  }
   .topbar-name{
     text-align: right;
     color: black;
     margin-right: 300px;
     margin-top: 15px;
+    @include breakpoint(0, 992){
+      margin-right: 50px;
+    }
   }  
 }
