@@ -76,3 +76,7 @@ npm run start (running on port 8080)
 - Readme
 
 - Testing
+
+- Project status should be changed if expired
+
+- Expert could be added to projects
