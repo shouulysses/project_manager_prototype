@@ -6,7 +6,7 @@ import * as expertController from './controllers/expert.controller';
 
 export default function () {
   Project.count().exec((err, count) => {
-    if (count > 1000) {
+    if (count > 0) {
       console.log('dummy is not inputted');
       return;
     }
@@ -18,7 +18,7 @@ export default function () {
         .then(() => {
           const project1 = new Project({ title: 'New Project A', startDate: moment('20170901'), status: 'new', dateAdded: moment() });
           const project2 = new Project({ title: 'New Project B', startDate: moment('20170901'), status: 'new', dateAdded: moment() });
-          const project3 = new Project({ title: 'New Project C', startDate: moment('20170901'), status: 'new', dateAdded: moment() });
+          const project3 = new Project({ title: 'New Project C', startDate: moment('20170901'), status: 'pending', dateAdded: moment() });
           const project4 = new Project({ title: 'New Project D', startDate: moment('20170901'), status: 'pending', dateAdded: moment() });
           const project5 = new Project({ title: 'New Project E', startDate: moment('20170501'), status: 'expired' });
 
@@ -30,8 +30,9 @@ export default function () {
             const expert1 = new Expert({ name: 'John', description: 'John is strong', dateAdded: moment() });
             const expert2 = new Expert({ name: 'Tom', description: 'Tom is tall', dateAdded: moment() });
             const expert3 = new Expert({ name: 'Peter', description: 'Peter is fast', dateAdded: moment() });
+            const expert4 = new Expert({ name: 'Ken', description: 'Ken is smart', dateAdded: moment() });
 
-            Expert.create([expert1, expert2, expert3], (error) => {
+            Expert.create([expert1, expert2, expert3, expert4], (error) => {
               if (error)
                 console.log(error);
             })
@@ -39,6 +40,8 @@ export default function () {
               expertController.addExpertToProject({ body: { projectId: projects[3]._id, expertId: expert[0]._id } });
               expertController.addExpertToProject({ body: { projectId: projects[3]._id, expertId: expert[1]._id } });
               expertController.addExpertToProject({ body: { projectId: projects[3]._id, expertId: expert[2]._id } });
+              expertController.addExpertToProject({ body: { projectId: projects[2]._id, expertId: expert[2]._id } });
+              expertController.addExpertToProject({ body: { projectId: projects[2]._id, expertId: expert[3]._id } });
               console.log('done inputting dummy');
             });
           });

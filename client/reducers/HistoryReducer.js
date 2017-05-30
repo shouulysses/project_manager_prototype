@@ -9,6 +9,10 @@ const HistoryReducer = (state = initialState, action) => {
       return {
         data: action.histories
       };
+    case ActionTypes.LOAD_MORE :
+      return {
+        data: _.concat(state.data, action.histories)
+      };
     default:
       return state;
   }

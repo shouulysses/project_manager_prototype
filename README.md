@@ -1,12 +1,11 @@
-## A simple full-stack solution for a Project Manager
+## A simple full-stack solution for managing projects, experts and history in a mern way
 
-**Description**
+**Boilerplate**
 Boilerplate based on https://mern.io
 
-Further modified by me in https://github.com/shouulysses/mern-starter
+Further modification in https://github.com/shouulysses/mern-starter
 
 By adding support of scss, eslint, file structure rearrangement, user auth using passport
-
 
 **Working cloud ide (public)**
 
@@ -16,14 +15,21 @@ https://ide.c9.io/shouulysses/project_manager_mern
 
 https://project-manager-mern-shouulysses.c9users.io/
 
+## Installation
 
-**Basic instruction**
-
+````sh
 npm install
+````
 
+**Local usage**
+
+use Node > 7.6
+
+````sh
 mongod (in a separate terminal)
 
 npm run start (running on port 8080)
+````
 
 **Project progress**
 
@@ -46,18 +52,20 @@ npm run start (running on port 8080)
 - Single Project Page
 
 - Dummy data
-- 
+
 - Action, reducer of History
 
 - History Page
 
-**WIP**
-
-**Todo** (Beyond requirement - will be further done on 30 May 2017)
-
 - 'Load more' in history page
 
+- Eslint
+
+**WIP**
+
 - Responsiveness improvement
+
+**Todo** 
 
 - Component rearrangement
 
@@ -66,7 +74,5 @@ npm run start (running on port 8080)
 - Rubbish cleaning
 
 - Readme
-
-- Eslint
 
 - Testing

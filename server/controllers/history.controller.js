@@ -12,8 +12,9 @@ import Expert from '../models/expert';
 
 export function getHistories(req, res) {
   History.find()
-  .limit(req.body.limit || 50)
-  .sort('dateAdded')
+  .skip(req.body.skip || 0)
+  .limit(req.body.limit || 20)
+  .sort('-dateAdded')
   .then((histories) => {
     Project.find({
       _id: { $in: _.map(histories, history => history.projectId) }

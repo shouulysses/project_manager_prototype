@@ -29,7 +29,7 @@ export function addProjectRequest(project) {
 
 export function addProjects(projects) {
   return {
-    type: ActionTypes.DD_PROJECTS,
+    type: ActionTypes.ADD_PROJECTS,
     projects,
   };
 }

@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import moment from 'moment';
 
 // Import Actions
-import { fetchHistories } from '../../actions/HistoryActions';
+import { fetchHistories, loadMore } from '../../actions/HistoryActions';
 
 // Import Selectors
 import { getHistories } from '../../reducers/HistoryReducer';
@@ -15,12 +15,14 @@ class HistoryListingPage extends Component {
   constructor(props){
     super(props);
     this.state = {
-      histories: this.props.histories
+      histories: this.props.histories,
+      limit: 20,
+      skip: 10
     };
   }
   
   componentDidMount() {
-    this.props.dispatch(fetchHistories());
+    this.props.dispatch(fetchHistories(10, 0));
   }
   
   componentWillReceiveProps(nextProps){
@@ -33,6 +35,15 @@ class HistoryListingPage extends Component {
     ? _.sortBy(this.state.histories, field)
     : _.sortBy(this.state.histories, field).reverse();
     this.setState({ histories });
+  }
+  
+  loadMore = (limit, skip) => {
+    console.log('load', limit, skip)
+    this.props.dispatch(fetchHistories(limit, skip));
+    this.setState({
+      limit: this.state.limit + 10,
+      skip: this.state.skip + 10
+    });
   }
   
   renderHeader(title, field){
@@ -65,18 +76,24 @@ class HistoryListingPage extends Component {
               <td>{ _.get(history, 'expert_name') }</td>
               <td>{ _.get(history, 'user') }</td>
               <td className="capitalize">{ _.get(history,'result') } </td>
-              <td>{moment(_.get(history, 'dateAdded')).format("MMM Do YYYY") || 'N/A'}</td>
+              <td>{moment(_.get(history, 'dateAdded')).format("MMM Do YYYY hh:mm:ss") || 'N/A'}</td>
               </tr>
             )}
           </tbody>
         </Table>
+        <Button 
+          className={`ui button`}
+          onClick={() => this.loadMore(this.state.limit, this.state.skip)}
+        >
+        Load More
+        </Button>
       </div>
     );
   }
 }
 
 HistoryListingPage.need = [params => {
-  return fetchHistories();
+  return fetchHistories(10, 0);
 }];
 
 // Retrieve data from store as props

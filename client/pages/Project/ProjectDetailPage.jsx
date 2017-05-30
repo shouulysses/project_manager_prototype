@@ -25,9 +25,13 @@ class ProjectDetailPage extends Component {
   
   getCurrentStatus = (index) => {
     // getting the status of each experts
-    let expertStatus = _.map(_.flatten(_.map(_.get(this.props, 'experts'), 'projects')), expert => {
-      if(expert._id === _.get(this.props.project, '_id'))
-        return _.get(expert, 'status');
+    let expertStatus = [];
+    _.each(_.get(this.props, 'experts'), expert => {
+      _.each(expert.projects, project => {
+        if (project._id === _.get(this.props.project, '_id')){
+          expertStatus.push(project.status);
+        }
+      });
     });
     return _.get(expertStatus, index);
   }

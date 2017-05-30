@@ -10,9 +10,16 @@ export function addHistories(histories) {
   };
 }
 
-export function fetchHistories() {
+export function loadMore(histories) {
+  return {
+    type: ActionTypes.LOAD_MORE,
+    histories
+  };
+}
+
+export function fetchHistories(limit, skip) {
   return (dispatch) => {
-    return callApi('histories').then((res) => {
+    return callApi('histories', 'post', { limit, skip }).then((res) => {
       let histories = _.map(res.histories, (history) => {
         return {
           project_title: _.find(res.projects, ['_id', history.projectId]).title,
@@ -22,7 +29,11 @@ export function fetchHistories() {
           dateAdded: history.dateAdded
         };
       });
-      dispatch(addHistories(histories));
+      if (skip === 0) {
+        dispatch(addHistories(histories));
+      } else {
+        dispatch(loadMore(histories));
+      }
     });
   };
 }
