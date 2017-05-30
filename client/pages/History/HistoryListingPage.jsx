@@ -57,35 +57,38 @@ class HistoryListingPage extends Component {
   
   render(){
     return (
-      <div className="history-listing col-10 center pt2 overflow-wrapper">
-        <Table className="ui celled table unstackable">
-          <thead>
-            <tr>
-              { this.renderHeader('Project Title', 'project_title') }
-              { this.renderHeader('Expert Name', 'expert_name') }
-              { this.renderHeader('User', 'user') }
-              { this.renderHeader('result', 'result') }
-              { this.renderHeader('Date Added', 'dateAdded') }
-            </tr>
-          </thead>
-          <tbody>
-          {_.map( this.state.histories, (history, index) =>
-            <tr key={`${_.get(history, '_id')}-${index}`}>
-              <td>{ _.get(history, 'project_title') }</td>
-              <td>{ _.get(history, 'expert_name') }</td>
-              <td>{ _.get(history, 'user') }</td>
-              <td className="capitalize">{ _.get(history,'result') } </td>
-              <td>{moment(_.get(history, 'dateAdded')).format("MMM Do YYYY hh:mm:ss") || 'N/A'}</td>
+      <div className="history-listing col-10 center pt2 ">
+        <h2>History</h2>
+        <div className="overflow-wrapper">
+          <Table className="ui celled table unstackable">
+            <thead>
+              <tr>
+                { this.renderHeader('Project Title', 'project_title') }
+                { this.renderHeader('Expert Name', 'expert_name') }
+                { this.renderHeader('User', 'user') }
+                { this.renderHeader('result', 'result') }
+                { this.renderHeader('Date Added', 'dateAdded') }
               </tr>
-            )}
-          </tbody>
-        </Table>
-        <Button 
-          className={`ui button`}
-          onClick={() => this.loadMore(this.state.limit, this.state.skip)}
-        >
-        Load More
-        </Button>
+            </thead>
+            <tbody>
+            {_.map( this.state.histories, (history, index) =>
+              <tr key={`${_.get(history, '_id')}-${index}`}>
+                <td>{ _.get(history, 'project_title') }</td>
+                <td>{ _.get(history, 'expert_name') }</td>
+                <td>{ _.get(history, 'user') }</td>
+                <td className="capitalize">{ _.get(history,'result') } </td>
+                <td>{moment(_.get(history, 'dateAdded')).format("MMM Do YYYY hh:mm:ss") || 'N/A'}</td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+          <Button 
+            className={`ui button`}
+            onClick={() => this.loadMore(this.state.limit, this.state.skip)}
+          >
+          Load More
+          </Button>
+        </div>
       </div>
     );
   }
