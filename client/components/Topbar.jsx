@@ -1,12 +1,19 @@
 import React from 'react';
-import _get from 'lodash';
+import { connect } from 'react-redux';
+import { currentUser } from '../reducers/AuthReducer';
 
-const Sidebar = ({ currentUser }) => (
+const Topbar = ({ user }) => (
   <div className="topbar-container">
     <div className="topbar-name">
-      {currentUser}
+      { user }
     </div>
   </div>
 );
 
-export default Sidebar;
+function mapStateToProps(state) {
+  return {
+    user: currentUser(state)
+  };
+}
+
+export default connect(mapStateToProps)(Topbar);

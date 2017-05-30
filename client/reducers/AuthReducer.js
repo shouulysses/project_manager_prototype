@@ -61,8 +61,10 @@ const authReducer = (state = initialState, action) => {
 // Selectors
 
 // Get all current user (email)
-export const currentUser = state => _.get(state, 'auth.user.email', 'non-user');
-
+export const currentUser = state => {
+  console.log('a')
+  return _.get(state, 'auth.user.email', 'non-user');
+}
 export const isAuthenticated = state => _.get(state, 'auth.isAuthenticated', false);
 
 export default authReducer;

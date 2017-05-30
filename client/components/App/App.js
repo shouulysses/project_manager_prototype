@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import * as _ from 'lodash';
+
 
 // Import Components
 import Helmet from 'react-helmet';
@@ -8,7 +10,7 @@ import Sidebar from '../Sidebar';
 import Topbar from '../Topbar';
 
 // Import Selectors
-import { currentUser, isAuthenticated } from '../../reducers/AuthReducer';
+import { isAuthenticated } from '../../reducers/AuthReducer';
 
 export class App extends Component {
   constructor(props) {
@@ -17,15 +19,14 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({isMounted: true}); // eslint-disable-line
+    this.setState({ isMounted: true }); // eslint-disable-line
   }
 
   render() {
     const {
-      user,
       location
     } = this.props;
-
+    
     const authBool = (location.pathname === '/' || location.pathname.includes('signup'));
 
     return (
@@ -53,8 +54,8 @@ export class App extends Component {
           />
           <div className={`container ${!authBool && 'container-auth'}`}>
             {!authBool && [
-              <Sidebar route={location.pathname} />,
-              <Topbar currentUser={user} />
+              <Sidebar route={ location.pathname } />,
+              <Topbar />
             ]}
             {this.props.children}
           </div>
@@ -62,6 +63,14 @@ export class App extends Component {
       </div>
     );
   }
+}
+
+// Retrieve data from state as props
+function mapStateToProps(state) {
+  return {
+    intl: state.intl,
+    isAuthenticated: isAuthenticated(state)
+  };
 }
 
 App.propTypes = {
@@ -72,14 +81,5 @@ App.propTypes = {
   user: PropTypes.string.isRequired,
   location: PropTypes.object.isRequired
 };
-
-// Retrieve data from state as props
-function mapStateToProps(state) {
-  return {
-    intl: state.intl,
-    isAuthenticated: isAuthenticated(state),
-    user: currentUser(state)
-  };
-}
 
 export default connect(mapStateToProps)(App);
