@@ -1,13 +1,13 @@
+import moment from 'moment';
 import Project from '../models/project';
 import Expert from '../models/expert';
 import History from '../models/history';
-import moment from 'moment';
 
 /**
  * Get all experts
  * @param req
  * @param res
- * @returns void
+ * @returns void; res.json({ experts })
  **/
 
 export function getExperts(req, res) {
@@ -22,7 +22,7 @@ export function getExperts(req, res) {
  * Save a expert
  * @param req
  * @param res
- * @returns void
+ * @returns void; res.json({ expert })
  */
 export function addExpert(req, res) {
   if (!req.body.expert.name || !req.body.expert.description) {
@@ -45,7 +45,7 @@ export function addExpert(req, res) {
  * @param res
  * @returns void
  */
- 
+
 export function deleteExpert(req, res) {
   Expert.findOne({ _id: req.params.id }).exec((err, expert) => {
     if (err)
@@ -56,11 +56,16 @@ export function deleteExpert(req, res) {
   });
 }
 
-
+/**
+ * Adding expert to a project
+ * @param req.body: { projectId, expertId }
+ * @param res
+ * @returns void; res.json({ project })
+ */
 
 export function addExpertToProject(req, res) {
-  if(!req.body.projectId || !req.body.expertId) {
-    return res.status(403).json({
+  if (!req.body.projectId || !req.body.expertId) {
+    res.status(403).json({
       message: 'Data not entered'
     });
   }
@@ -75,7 +80,7 @@ export function addExpertToProject(req, res) {
       }
     }
   })
-  .then((expert) => {
+  .then(() => {
     Project.update({
       _id: req.body.projectId
     }, {
@@ -83,24 +88,31 @@ export function addExpertToProject(req, res) {
     }, (projectErr, project) => {
       if (projectErr)
         res.status(500).json({ message: projectErr });
-      if(res)
+      if (res)
         res.json({ project });
     });
   });
 }
 
-export function changeExpertStatus(req, res){
-  if(!req.body.expertId || !req.body.projectId || !req.body.user || !req.body.status) {
-    return res.status(403).json({
+/**
+ * Change a expert's status
+ * @param req.body: { expertId, projectId, user, status }
+ * @param res
+ * @returns void; res.json({ expert })
+ */
+
+export function changeExpertStatus(req, res) {
+  if (!req.body.expertId || !req.body.projectId || !req.body.user || !req.body.status) {
+    res.status(403).json({
       message: 'Data not entered'
     });
   }
-    
-  Expert.findOneAndUpdate({ 
+
+  Expert.findOneAndUpdate({
     _id: req.body.expertId,
     'projects._id': req.body.projectId
   }, {
-    $set: { "projects.$.status": req.body.status }
+    $set: { 'projects.$.status': req.body.status }
   }, {
     new: true
   })
@@ -112,7 +124,7 @@ export function changeExpertStatus(req, res){
       result: req.body.status,
       dateAdded: moment()
     });
-    history.save((err, history) => {
+    history.save((err) => {
       if (err)
         res.status(500).json({ message: err });
       res.json({ expert });

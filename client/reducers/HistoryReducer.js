@@ -1,17 +1,17 @@
-import { ADD_HISTORIES } from '../actions/HistoryActions';
 import * as _ from 'lodash';
+import * as ActionTypes from '../constants/actionTypes/History';
 
 const initialState = { date: [] };
 
 const HistoryReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_HISTORIES :
+    case ActionTypes.ADD_HISTORIES :
       return {
         data: action.histories
       };
     default:
       return state;
-  }  
+  }
 };
 
 // Selectors

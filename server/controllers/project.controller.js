@@ -1,14 +1,15 @@
+import * as _ from 'lodash';
+import moment from 'moment';
 import Project from '../models/project';
 import Expert from '../models/expert';
-import moment from 'moment';
-import * as _ from 'lodash';
 
 /**
  * Get all projects
  * @param req
  * @param res
- * @returns void
+ * @returns void; res.json({ projects })
  */
+
 export function getProjects(req, res) {
   Project.find().sort('-startDate').exec((err, projects) => {
     if (err)
@@ -19,23 +20,24 @@ export function getProjects(req, res) {
 
 /**
  * Get a single project
- * @param req
+ * @param req.params.id
  * @param res
- * @returns void
+ * @returns void; res.json({ project, experts })
  */
+
 export function getProject(req, res) {
-  if(_.get(req, 'params.id')) {
-    Project.findOne({ 
-      _id: req.params.id 
-    }, (err, project) => {
-      if(err)
+  if (_.get(req, 'params.id')) {
+    Project.findOne({
+      _id: req.params.id
+    }, (err) => {
+      if (err)
         res.status(500).json({ message: err });
     })
     .then((project) => {
       Expert.find({
-        _id: {$in: project.experts }
+        _id: { $in: project.experts }
       }, (expertErr, experts) => {
-        if(expertErr)
+        if (expertErr)
           res.status(500).json({ message: expertErr });
         res.json({ project, experts });
       });
@@ -45,9 +47,9 @@ export function getProject(req, res) {
 
 /**
  * Save a project
- * @param req
+ * @param req.body: { project: { title, startDate } }
  * @param res
- * @returns void
+ * @returns void; res.json({ project })
  */
 export function addProject(req, res) {
   if (!req.body.project.title || !req.body.project.startDate) {
@@ -72,7 +74,7 @@ export function addProject(req, res) {
  * @param res
  * @returns void
  */
- 
+
 export function deleteProject(req, res) {
   Project.findOne({ _id: req.params.id }).exec((err, project) => {
     if (err) {

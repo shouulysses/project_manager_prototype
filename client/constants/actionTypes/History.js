@@ -1,0 +1,1 @@
+export const ADD_HISTORIES = 'ADD_HISTORIES';

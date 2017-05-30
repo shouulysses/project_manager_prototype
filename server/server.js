@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
 import session from 'express-session';
-import IntlWrapper from '../client/IntlWrapper';
+import { IntlWrapper } from '../client/IntlWrapper';
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -12,21 +12,10 @@ import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-// Initialize the Express App
-const app = new Express();
-
-// Run Webpack dev server in development mode
-if (process.env.NODE_ENV === 'development') {
-  const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
-  app.use(webpackHotMiddleware(compiler));
-}
-
-
 // React And Redux Setup
+import React from 'react';
 import { configureStore } from '../client/store';
 import { Provider } from 'react-redux';
-import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
@@ -42,6 +31,16 @@ import history from './routes/history.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
 import passport from './passport';
+
+// Initialize the Express App
+const app = new Express();
+
+// Run Webpack dev server in development mode
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(config);
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
+}
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -114,7 +113,7 @@ const renderFullPage = (html, initialState) => {
   `;
 };
 
-const renderError = err => {
+const renderError = (err) => {
   const softTab = '&#32;&#32;&#32;&#32;';
   const errTrace = process.env.NODE_ENV !== 'production' ?
     `:<br><br><pre style="color:red">${softTab}${err.stack.replace(/\n/g, `<br>${softTab}`)}</pre>` : '';
@@ -155,7 +154,7 @@ app.use((req, res, next) => {
           .status(200)
           .end(renderFullPage(initialView, finalState));
       })
-      .catch((error) => next(error));
+      .catch(error => next(error));
   });
 });
 

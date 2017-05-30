@@ -8,9 +8,8 @@ passport.use(new LocalStrategy(
   {
     usernameField: 'email',
     passwordField: 'password',
-  },
-  function(email, password, done) {
-    User.findOne({email})
+  }, (email, password, done) => {
+    User.findOne({ email })
     .then((user) => {
       if (!user) {
         done(null, false, { message: 'Invalid email' });
@@ -22,7 +21,7 @@ passport.use(new LocalStrategy(
     })
     .catch((err) => {
       done(err, false);
-    }); 
+    });
   }
 ));
 

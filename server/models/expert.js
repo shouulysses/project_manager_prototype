@@ -6,9 +6,9 @@ const Schema = mongoose.Schema;
 const expertSchema = new Schema({
   name: { type: 'String', required: true, max: 20 },
   description: { type: 'String', required: true, max: 1000 },
-  projects: [{ 
+  projects: [{
     _id: 'String',
-    status: 'String' 
+    status: 'String'
   }],
   dateAdded: { type: 'Date', default: moment(), required: true },
 });

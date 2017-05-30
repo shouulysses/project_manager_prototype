@@ -9,10 +9,10 @@ const userSchema = new Schema({
   create_at: { type: 'Date', default: Date.now }
 });
 
-userSchema.methods.generateHash = password => 
+userSchema.methods.generateHash = password =>
   bcrypt.hashSync(password, null, null);
 
-userSchema.methods.validatePassword = function(password, validate){
+userSchema.methods.validatePassword = (password, validate) => {
   return bcrypt.compareSync(password, validate);
 };
 

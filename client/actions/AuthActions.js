@@ -1,10 +1,10 @@
 import fetch from 'isomorphic-fetch';
-import * as ActionTypes from '../constants/constants';
+import * as ActionTypes from '../constants/actionTypes/Auth';
 import callApi from '../util/apiCaller';
 
 const baseURL = typeof window === 'undefined' ? process.env.BASE_URL || (`http://localhost:${(process.env.PORT || 8000)}`) : '';
 
-export function initialState(){
+export function initialState() {
   return {
     type: ActionTypes.INITIAL,
     isAuthenticated: false,
@@ -29,7 +29,7 @@ export function loginSuccess(user, email) {
     isFetching: false,
     isAuthenticated: true,
     token: user.token,
-    email: email
+    email
   };
 }
 
@@ -66,13 +66,12 @@ export function tokenInvalid() {
   };
 }
 
-export function currentUser(){
+export function currentUser() {
   return {
     type: ActionTypes.SUCCESSFUL_LOGIN,
     isFetching: false,
-    isAuthenticated: true,
-    
-  }
+    isAuthenticated: true
+  };
 }
 
 export function checkToken(sToken) {
@@ -116,7 +115,7 @@ export function checkToken(sToken) {
 export function loginUser(creds) {
   return (dispatch) => {
     dispatch(requestLogin(creds));
-    return callApi('login', 'POST', creds) 
+    return callApi('login', 'POST', creds)
     .then((response) => {
       const { user, message } = response;
       if (!user.ok) {
@@ -125,7 +124,6 @@ export function loginUser(creds) {
       }
       localStorage.setItem('token', user.token);
       dispatch(loginSuccess(user, creds.email));
-      
       return null;
     })
     .catch((err) => {
@@ -143,7 +141,7 @@ export function signup(creds) {
         password: creds.password,
         confirmPassword: creds.confirmPassword
       }
-    }) 
+    })
     .then((response) => {
       const { user, message } = response;
       if (!user.ok) {

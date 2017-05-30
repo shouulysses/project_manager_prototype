@@ -1,15 +1,10 @@
 import callApi from '../util/apiCaller';
-
-// Export Constants
-export const ADD_EXPERT = 'ADD_EXPERT';
-export const ADD_EXPERTS = 'ADD_EXPERTS';
-export const DELETE_EXPERT = 'DELETE_EXPERT';
-export const UPDATE_EXPERT = 'UPDATE_EXPERT;'
+import * as ActionTypes from '../constants/actionTypes/Expert';
 
 // Export Actions
 export function addExpert(expert) {
   return {
-    type: ADD_EXPERT,
+    type: ActionTypes.ADD_EXPERT,
     expert,
   };
 }
@@ -27,21 +22,21 @@ export function addExpertRequest(expert) {
 
 export function addExperts(experts) {
   return {
-    type: ADD_EXPERTS,
-    experts,
+    type: ActionTypes.ADD_EXPERTS,
+    experts
   };
 }
 
 export function updateExpert(expert) {
   return {
-    type: UPDATE_EXPERT,
-    expert    
-  }
+    type: ActionTypes.UPDATE_EXPERT,
+    expert
+  };
 }
 
 export function fetchExperts() {
   return (dispatch) => {
-    return callApi('experts').then(res => {
+    return callApi('experts').then((res) => {
       dispatch(addExperts(res.experts));
     });
   };
@@ -49,7 +44,7 @@ export function fetchExperts() {
 
 export function deleteExpert(id) {
   return {
-    type: DELETE_EXPERT,
+    type: ActionTypes.DELETE_EXPERT,
     id
   };
 }
@@ -69,6 +64,6 @@ export function changeExpertStatus(expertId, projectId, user, status) {
       user,
       status
     })
-    .then(res => dispatch(updateExpert( res.expert )));
+    .then(res => dispatch(updateExpert(res.expert)));
   };
 }

@@ -50,6 +50,8 @@
     "curly": 0,
     "arrow-body-style": 0,
     "react/jsx-filename-extension": 0,
-    "react/forbid-prop-types": "warn"
+    "react/forbid-prop-types": "warn",
+    "global-require": 0,
+    "import/first": "warn"
   }
 }

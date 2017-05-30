@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './components/App/App';
+import { App } from './components/App/App';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -9,10 +9,6 @@ if (typeof require.ensure !== 'function') {
   };
 }
 
-/* Workaround for async react routes to work with react-hot-reloader till
-  https://github.com/reactjs/react-router/issues/2182 and
-  https://github.com/gaearon/react-hot-loader/issues/288 is fixed.
- */
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
   require('./containers/Project/ProjectListContainer');
@@ -26,17 +22,17 @@ if (process.env.NODE_ENV !== 'production') {
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
 export default (
   <Route path="/" component={App}>
-    <IndexRoute 
+    <IndexRoute
       getComponent={(nextState, cb) => {
-        require.ensure([], require => {
+        require.ensure([], (require) => {
           cb(null, require('./containers/Auth/LoginContainer').default);
         });
       }}
     />
-    <Route 
+    <Route
       path="/signup"
       getComponent={(nextState, cb) => {
-        require.ensure([], require => {
+        require.ensure([], (require) => {
           cb(null, require('./containers/Auth/SignupContainer').default);
         });
       }}
@@ -44,7 +40,7 @@ export default (
     <Route
       path="/projects"
       getComponent={(nextState, cb) => {
-        require.ensure([], require => {
+        require.ensure([], (require) => {
           cb(null, require('./containers/Project/ProjectListContainer').default);
         });
       }}
@@ -52,7 +48,7 @@ export default (
     <Route
       path="/project/:id"
       getComponent={(nextState, cb) => {
-        require.ensure([], require => {
+        require.ensure([], (require) => {
           cb(null, require('./pages/Project/ProjectDetailPage').default);
         });
       }}
@@ -60,11 +56,11 @@ export default (
     <Route
       path="/history"
       getComponent={(nextState, cb) => {
-        require.ensure([], require => {
+        require.ensure([], (require) => {
           cb(null, require('./pages/History/HistoryListingPage').default);
         });
       }}
     />
-    
+
   </Route>
 );

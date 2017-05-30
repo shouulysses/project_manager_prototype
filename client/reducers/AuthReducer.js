@@ -1,5 +1,5 @@
-import * as ActionTypes from '../constants/constants';
 import * as _ from 'lodash';
+import * as ActionTypes from '../constants/actionTypes/Auth';
 
 const initialState = {
   isAuthenticated: false,
@@ -17,7 +17,7 @@ const authReducer = (state = initialState, action) => {
         isFetching: action.isFetching,
         loaded: false,
       };
-    case ActionTypes.TOKEN_VALID: 
+    case ActionTypes.TOKEN_VALID:
       return {
         ...state,
         isAuthenticated: action.isAuthenticated,

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as historyController from '../controllers/history.controller';
+
 const router = new Router();
 
 // Get all histories

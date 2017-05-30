@@ -1,15 +1,14 @@
 import callApi from '../util/apiCaller';
+import * as ActionTypes from '../constants/actionTypes/Project';
 import { addExperts } from './ExpertActions';
 
 // Export Constants
-export const ADD_PROJECT = 'ADD_PROJECT';
-export const ADD_PROJECTS = 'ADD_PROJECTS';
-export const DELETE_PROJECT = 'DELETE_PROJECT';
+
 
 // Export Actions
 export function addProject(project) {
   return {
-    type: ADD_PROJECT,
+    type: ActionTypes.ADD_PROJECT,
     project,
   };
 }
@@ -30,14 +29,14 @@ export function addProjectRequest(project) {
 
 export function addProjects(projects) {
   return {
-    type: ADD_PROJECTS,
+    type: ActionTypes.DD_PROJECTS,
     projects,
   };
 }
 
 export function fetchProjects() {
   return (dispatch) => {
-    return callApi('projects').then(res => {
+    return callApi('projects').then((res) => {
       dispatch(addProjects(res.projects));
     });
   };
@@ -45,7 +44,7 @@ export function fetchProjects() {
 
 export function fetchProject(id) {
   return (dispatch) => {
-    return callApi(`project/${id}`).then(res => {
+    return callApi(`project/${id}`).then((res) => {
       dispatch(addProject(res.project));
       dispatch(addExperts(res.experts));
     });
@@ -54,7 +53,7 @@ export function fetchProject(id) {
 
 export function deleteProject(id) {
   return {
-    type: DELETE_PROJECT,
+    type: ActionTypes.DELETE_PROJECT,
     id
   };
 }

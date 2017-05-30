@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
 
 // Import Components
 import Helmet from 'react-helmet';
@@ -23,23 +22,22 @@ export class App extends Component {
 
   render() {
     const {
-      isAuthenticated,
-      currentUser,
+      user,
       location
     } = this.props;
- 
+
     const authBool = (location.pathname === '/' || location.pathname.includes('signup'));
-    
+
     return (
       <div>
-        {/*this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />*/}
+        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
             title="Lynk Project Manager"
             titleTemplate="%s - Lynk Project Manager"
-            link={[{ 
-              rel: "stylesheet",
-              href: "//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css" 
+            link={[{
+              rel: 'stylesheet',
+              href: '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css'
             }]}
             meta={[
               { charset: 'utf-8' },
@@ -53,11 +51,11 @@ export class App extends Component {
               },
             ]}
           />
-          <div className= {`container ${!authBool && 'container-auth'}`}>
-          {!authBool && [
-            <Sidebar route={location.pathname} />,
-            <Topbar currentUser={currentUser} />
-          ]}
+          <div className={`container ${!authBool && 'container-auth'}`}>
+            {!authBool && [
+              <Sidebar route={location.pathname} />,
+              <Topbar currentUser={user} />
+            ]}
             {this.props.children}
           </div>
         </div>
@@ -71,7 +69,8 @@ App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  currentUser: PropTypes.string.isRequired
+  user: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired
 };
 
 // Retrieve data from state as props
@@ -79,7 +78,7 @@ function mapStateToProps(state) {
   return {
     intl: state.intl,
     isAuthenticated: isAuthenticated(state),
-    currentUser: currentUser(state)
+    user: currentUser(state)
   };
 }
 

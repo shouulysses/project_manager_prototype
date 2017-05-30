@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as ProjectController from '../controllers/project.controller';
-import passport from '../passport';
+
 const router = new Router();
 
 // Get all Projects

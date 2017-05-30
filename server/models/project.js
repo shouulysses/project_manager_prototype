@@ -8,7 +8,7 @@ const projectSchema = new Schema({
   startDate: { type: 'Date', required: true },
   status: { type: 'String', required: true },
   dateAdded: { type: 'Date', default: moment(), required: true },
-  experts: {type: ['String']}
+  experts: { type: ['String'] }
 });
 
 export default mongoose.model('Project', projectSchema);
