@@ -23,7 +23,7 @@ npm install
 
 **Local usage**
 
-use Node > 7.6
+use Node > 7.6 Mongo > 3.2
 
 ````sh
 mongod (in a separate terminal)
