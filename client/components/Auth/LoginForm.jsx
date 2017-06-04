@@ -9,10 +9,14 @@ class LoginForm extends Component {
   constructor(props, context) {
     super(props, context);
     this.handleLogin = this.handleLogin.bind(this);
+    this.state = {
+      enableMessage: false
+    };
   }
   
   handleLogin = (e) => {
     e.preventDefault();
+    this.setState({ enableMessage: true });
     this.props.handleLogin(this.email.value, this.password.value);
   }
   
@@ -34,7 +38,7 @@ class LoginForm extends Component {
               <div className="btn-group">
                 <Button type="submit">Sign In</Button>
               </div>
-              { this.props.message }
+              { this.state.enableMessage && this.props.message }
             </Form>
             <div className="mt2">
               <Link to="/signup">I want to Sign up</Link>
