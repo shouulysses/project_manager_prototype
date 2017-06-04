@@ -38,9 +38,9 @@ export function signup(req, res) {
       });
       user.password = user.generateHash(user.password);
       user.save((saveErr, saved) => {
-        if (saveErr){
+        if (saveErr) {
           res.status(403).json({
-            message: 'user error'   
+            message: 'user error'
           });
         }
 

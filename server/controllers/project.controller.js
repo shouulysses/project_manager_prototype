@@ -4,6 +4,23 @@ import Project from '../models/project';
 import Expert from '../models/expert';
 
 /**
+ * Make a project as expired
+ * @param req
+ * @param res
+ * @returns void
+ */
+
+export function expireProject(project) {
+  Project.update({
+    _id: project._id
+  }, {
+    $set: {
+      status: 'expired'
+    }
+  });
+}
+
+/**
  * Get all projects
  * @param req
  * @param res
@@ -14,6 +31,13 @@ export function getProjects(req, res) {
   Project.find().sort('-startDate').exec((err, projects) => {
     if (err)
       res.status(500).json({ message: err });
+    _.each(projects, (project) => {
+      if (project.startDate < moment()) {
+        console.log('make it as expired');
+        _.set(project, 'status', 'expired');
+        expireProject(project);
+      }
+    });
     res.json({ projects });
   });
 }

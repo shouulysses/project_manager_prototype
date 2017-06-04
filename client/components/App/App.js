@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
+//import * as _ from 'lodash';
 
 
 // Import Components
@@ -26,12 +26,12 @@ export class App extends Component {
     const {
       location
     } = this.props;
-    
+
     const authBool = (location.pathname === '/' || location.pathname.includes('signup'));
 
     return (
       <div>
-        {/*this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />*/}
+        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
             title="Lynk Project Manager"
@@ -54,7 +54,7 @@ export class App extends Component {
           />
           <div className={`container ${!authBool && 'container-auth'}`}>
             {!authBool && [
-              <Sidebar route={ location.pathname } />,
+              <Sidebar route={location.pathname} />,
               <Topbar />
             ]}
             {this.props.children}

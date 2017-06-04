@@ -63,6 +63,8 @@ npm run start (running on port 8080)
 
 **WIP**
 
+- Project status should be changed if expired
+
 - Responsiveness improvement
 
 **Todo** 
@@ -76,7 +78,5 @@ npm run start (running on port 8080)
 - Readme
 
 - Testing
-
-- Project status should be changed if expired
 
 - Expert could be added to projects
